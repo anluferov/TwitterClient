@@ -10,10 +10,12 @@ import Foundation
 import UIKit
 
 struct User {
-    let name: String = ""
-    let userName: String = ""
-    let avatar: UIImage
 
-    let tweetMessage: String = ""
-    let dateMessage: NSDate
+    #warning("TODO: сделать нормальный сеттер значений. Записывать данные в UserDefault после изменений значений в этом объекте")
+
+    let userName: String?
+    let oauthToken: String?
+    let oauthTokenSecret: String?
+
+    let isAuthorised: Bool = false
 }

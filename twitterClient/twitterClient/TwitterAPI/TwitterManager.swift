@@ -8,8 +8,11 @@
 
 import Foundation
 import OAuthSwift
+import Alamofire
 
 class TwitterManager {
+
+    // MARK: - authorization requests to Twitter API
 
     var oauthToken: String = ""
     var oauthTokenSecret: String = ""
@@ -32,9 +35,11 @@ class TwitterManager {
 
               print("Authorization is succesful! \n oauthToken: \(credential.oauthToken) \n oauthTokenSecret: \(credential.oauthTokenSecret) \n All parameters: \(parameters)")
 
-              UserDefaults.standard.set(credential.oauthToken, forKey: "User_OauthToken")
-              UserDefaults.standard.set(credential.oauthTokenSecret, forKey: "User_OauthTokenSecret")
-              UserDefaults.standard.setAuthorizesState(true)
+              #warning("TO DO: записывать данные в User Default через объект User")
+              UserDefaults.standard.set(credential.oauthToken, forKey: "UserOauthToken")
+              UserDefaults.standard.set(credential.oauthTokenSecret, forKey: "UserOauthTokenSecret")
+              UserDefaults.standard.set(parameters["screen_name"], forKey: "UserName")
+              UserDefaults.standard.setUserAuthorizedState(true)
 
             case .failure(let error):
               print(error.localizedDescription)
@@ -42,5 +47,18 @@ class TwitterManager {
         }
     }
 
+    // MARK: - another requests to Twitter API
+
+    func testRequestWithOAuthSwiftPOD() {
+        oauthswift.client.get("https://api.twitter.com/1.1/lists/list.json") { result in
+            switch result {
+            case .success(let response):
+                let dataString = response.string
+                print(dataString)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 
 }

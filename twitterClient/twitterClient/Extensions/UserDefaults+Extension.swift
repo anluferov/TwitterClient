@@ -10,7 +10,7 @@ import Foundation
 
 extension UserDefaults {
 
-    func setAuthorizesState( _ value: Bool) {
+    func setUserAuthorizedState( _ value: Bool) {
         if value {
             set(true, forKey: "Is_User_Authorised")
         } else {

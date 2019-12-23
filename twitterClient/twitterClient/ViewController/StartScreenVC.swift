@@ -8,11 +8,13 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class StartScreenViewController: UIViewController {
 
     let twitterManager = TwitterManager()
 
     @IBOutlet weak var signInWithTwitterButton: UIButton!
+    @IBOutlet weak var openFeedButton: UIButton!
+    @IBOutlet weak var cleanAuthorisedStateButton: UIButton!
 
     override func loadView() {
         print(#function)
@@ -34,9 +36,26 @@ class LoginViewController: UIViewController {
         twitterManager.doAuthorization()
     }
 
+    @IBAction func cleanAuthorisedStateAction(_ sender: Any) {
+        UserDefaults.standard.setUserAuthorizedState(false)
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showFeed" {
+            if let TweetFeedTableViewController = segue.destination as? TweetFeedTableViewController {
+//                addItemViewController.delegate = self
+//                addItemViewController.todoList = todoList
+            }
+        }
+    }
+
     @objc func refreshViewController() {
         if UserDefaults.standard.isUserAuthorized() {
             signInWithTwitterButton.isHidden = true
+            openFeedButton.isHidden = false
+        } else {
+            signInWithTwitterButton.isHidden = false
+            openFeedButton.isHidden = true
         }
     }
 }
