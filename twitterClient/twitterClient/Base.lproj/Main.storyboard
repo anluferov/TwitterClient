@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U9p-8G-w1r">
-                                <rect key="frame" x="107" y="423" width="200" height="50"/>
+                                <rect key="frame" x="167.5" y="439" width="79" height="18"/>
                                 <state key="normal" backgroundImage="twitter-button"/>
                                 <connections>
                                     <action selector="signInWithTwitterAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dtu-ao-jOH"/>
@@ -25,10 +25,10 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="U9p-8G-w1r" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5JJ-fv-h2C"/>
-                            <constraint firstItem="U9p-8G-w1r" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="7eQ-7G-Kul"/>
-                            <constraint firstItem="U9p-8G-w1r" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="379" id="lNW-vb-jEc"/>
-                            <constraint firstItem="U9p-8G-w1r" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="107" id="tkb-xV-Ziw"/>
+                            <constraint firstItem="U9p-8G-w1r" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="YRZ-is-Z7O"/>
+                            <constraint firstItem="U9p-8G-w1r" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="j2u-o6-uES"/>
+                            <constraint firstItem="U9p-8G-w1r" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="jk1-Nu-tK1"/>
+                            <constraint firstItem="U9p-8G-w1r" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="qAh-pJ-Jqj"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

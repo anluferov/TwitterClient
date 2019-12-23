@@ -16,6 +16,7 @@
 		CE2E2AA323ABF8E9007A1871 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE2E2AA123ABF8E9007A1871 /* LaunchScreen.storyboard */; };
 		CE2E2AB023ABFB14007A1871 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2E2AAF23ABFB14007A1871 /* User.swift */; };
 		CEB09E7923AFFCD600C4D780 /* TwitterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB09E7823AFFCD600C4D780 /* TwitterManager.swift */; };
+		CEB09E7C23B0FF9000C4D780 /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB09E7B23B0FF9000C4D780 /* UserDefaults+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		CE2E2AA423ABF8E9007A1871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE2E2AAF23ABFB14007A1871 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		CEB09E7823AFFCD600C4D780 /* TwitterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterManager.swift; sourceTree = "<group>"; };
+		CEB09E7B23B0FF9000C4D780 /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 		D31998E610F1F8B0FCCE3640 /* Pods_twitterClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_twitterClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -84,6 +86,7 @@
 		CE2E2A9523ABF8E5007A1871 /* twitterClient */ = {
 			isa = PBXGroup;
 			children = (
+				CEB09E7A23B0FF7A00C4D780 /* Extensions */,
 				CEB09E7723AFFCC000C4D780 /* TwitterAPI */,
 				CE2E2AAC23ABF9B1007A1871 /* ViewController */,
 				CE2E2AAA23ABF9A1007A1871 /* Model */,
@@ -119,6 +122,14 @@
 				CEB09E7823AFFCD600C4D780 /* TwitterManager.swift */,
 			);
 			path = TwitterAPI;
+			sourceTree = "<group>";
+		};
+		CEB09E7A23B0FF7A00C4D780 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CEB09E7B23B0FF9000C4D780 /* UserDefaults+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,6 +251,7 @@
 				CE2E2A9B23ABF8E5007A1871 /* ViewController.swift in Sources */,
 				CE2E2A9723ABF8E5007A1871 /* AppDelegate.swift in Sources */,
 				CE2E2A9923ABF8E5007A1871 /* SceneDelegate.swift in Sources */,
+				CEB09E7C23B0FF9000C4D780 /* UserDefaults+Extension.swift in Sources */,
 				CEB09E7923AFFCD600C4D780 /* TwitterManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -387,6 +399,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = twitterClient/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -405,6 +418,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = twitterClient/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
