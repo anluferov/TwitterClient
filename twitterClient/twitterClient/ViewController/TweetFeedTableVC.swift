@@ -15,8 +15,7 @@ class TweetFeedTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        twitterManager.testRequestWithOAuthSwiftPOD()
-
+        twitterManager.requestForAccountSettings()
 
     }
 

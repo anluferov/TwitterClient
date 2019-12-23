@@ -14,9 +14,6 @@ class TwitterManager {
 
     // MARK: - authorization requests to Twitter API
 
-    var oauthToken: String = ""
-    var oauthTokenSecret: String = ""
-
     // create an instance and retain it
     var oauthswift = OAuth1Swift(
         consumerKey:    "MeVFWwIRcqjx3jOdT3WTF2za7",
@@ -41,6 +38,8 @@ class TwitterManager {
               UserDefaults.standard.set(parameters["screen_name"], forKey: "UserName")
               UserDefaults.standard.setUserAuthorizedState(true)
 
+              self.testRequestWithOAuthSwiftPOD(self.oauthswift)
+
             case .failure(let error):
               print(error.localizedDescription)
             }
@@ -49,16 +48,47 @@ class TwitterManager {
 
     // MARK: - another requests to Twitter API
 
-    func testRequestWithOAuthSwiftPOD() {
-        oauthswift.client.get("https://api.twitter.com/1.1/lists/list.json") { result in
-            switch result {
-            case .success(let response):
-                let dataString = response.string
-                print(dataString)
-            case .failure(let error):
-                print(error)
-            }
+    func testRequestWithOAuthSwiftPOD(_ oauthswift: OAuth1Swift) {
+          let _ = oauthswift.client.get("https://api.twitter.com/1.1/account/verify_credentials.json", parameters: [:]) { result in
+              switch result {
+              case .success(let response):
+                  let jsonDict = try? response.jsonObject()
+                  print(String(describing: jsonDict))
+              case .failure(let error):
+                  print(error)
+              }
+          }
+    }
+
+    func prepareHeaders() -> HTTPHeaders? {
+
+        let oauth_consumer_key = oauthswift.client.credential.consumerKey
+//        let oauth_nonce
+//        let oauth_signature
+//        let oauth_signature_method
+//        let oauth_timestamp
+//        let oauth_token = UserDefaults.standard.value(forKey: "UserOauthToken") as? String
+
+        if let oauth_token = UserDefaults.standard.value(forKey: "UserOauthToken") as? String,
+            let _ = UserDefaults.standard.value(forKey: "UserOauthTokenSecret") as? String {
+                return [.authorization("OAuth oauth_consumer_key=\"\(oauth_consumer_key)\",oauth_token=\"\(oauth_token)\")")]
+        }
+
+        return nil
+
+
+    }
+
+    func requestForAccountSettings() {
+        if let headers = prepareHeaders() {
+            AF.request("https://api.twitter.com/1.1/account/settings.json", headers: headers)
+                .responseJSON { response in
+                    debugPrint(response)
+                }
         }
     }
+
+
+
 
 }
