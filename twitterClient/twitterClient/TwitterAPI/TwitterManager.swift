@@ -12,16 +12,22 @@ import Alamofire
 
 class TwitterManager {
 
+    static let instance = TwitterManager()
+
     // MARK: - authorization requests to Twitter API
 
     // create an instance and retain it
-    var oauthswift = OAuth1Swift(
+    let oauthswift = OAuth1Swift(
         consumerKey:    "MeVFWwIRcqjx3jOdT3WTF2za7",
         consumerSecret: "2HT6sXOIWzQZ9my8KY906GBxo5cd4hHzGZdt2d8DicAYncfN1J",
         requestTokenUrl: "https://api.twitter.com/oauth/request_token",
         authorizeUrl:    "https://api.twitter.com/oauth/authorize",
         accessTokenUrl:  "https://api.twitter.com/oauth/access_token"
     )
+
+//    var client: OAuthSwiftClient {
+//        return oauthswift.client
+//    }
 
     // authorize
     func doAuthorization() {
@@ -38,7 +44,8 @@ class TwitterManager {
               UserDefaults.standard.set(parameters["screen_name"], forKey: "UserName")
               UserDefaults.standard.setUserAuthorizedState(true)
 
-              self.testRequestWithOAuthSwiftPOD(self.oauthswift)
+//              self.item = OauthInfo.init(self.oauthswift)
+              self.testRequestWithOAuthSwiftPOD()
 
             case .failure(let error):
               print(error.localizedDescription)
@@ -48,8 +55,9 @@ class TwitterManager {
 
     // MARK: - another requests to Twitter API
 
-    func testRequestWithOAuthSwiftPOD(_ oauthswift: OAuth1Swift) {
-          let _ = oauthswift.client.get("https://api.twitter.com/1.1/account/verify_credentials.json", parameters: [:]) { result in
+//    func testRequestWithOAuthSwiftPOD(_ oauthswift: OAuth1Swift) {
+    func testRequestWithOAuthSwiftPOD() {
+        let requestCustom = self.oauthswift.client.get("https://api.twitter.com/1.1/account/verify_credentials.json", parameters: [:]) { result in
               switch result {
               case .success(let response):
                   let jsonDict = try? response.jsonObject()
@@ -62,7 +70,7 @@ class TwitterManager {
 
     func prepareHeaders() -> HTTPHeaders? {
 
-        let oauth_consumer_key = oauthswift.client.credential.consumerKey
+        let oauth_consumer_key = self.oauthswift.client.credential.consumerKey
 //        let oauth_nonce
 //        let oauth_signature
 //        let oauth_signature_method
@@ -71,7 +79,8 @@ class TwitterManager {
 
         if let oauth_token = UserDefaults.standard.value(forKey: "UserOauthToken") as? String,
             let _ = UserDefaults.standard.value(forKey: "UserOauthTokenSecret") as? String {
-                return [.authorization("OAuth oauth_consumer_key=\"\(oauth_consumer_key)\",oauth_token=\"\(oauth_token)\")")]
+            let stringValue = "OAuth oauth_consumer_key=" + "\(oauth_consumer_key)" + ",oauth_token=" + "\(oauth_token)"
+                return [.authorization(stringValue)]
         }
 
         return nil

@@ -10,7 +10,7 @@ import UIKit
 
 class StartScreenViewController: UIViewController {
 
-    let twitterManager = TwitterManager()
+    let twitterManager = TwitterManager.instance
 
     @IBOutlet weak var signInWithTwitterButton: UIButton!
     @IBOutlet weak var openFeedButton: UIButton!
