@@ -25,9 +25,15 @@ class TwitterManager {
         accessTokenUrl:  "https://api.twitter.com/oauth/access_token"
     )
 
-//    var client: OAuthSwiftClient {
-//        return oauthswift.client
-//    }
+    var oauthswiftClient: OAuthSwiftClient {
+        if let UserOauthToken = UserDefaults.standard.value(forKey: "UserOauthToken") as? String,
+            let UserOauthTokenSecret = UserDefaults.standard.value(forKey: "UserOauthTokenSecret") as? String {
+                oauthswift.client.credential.oauthToken = UserOauthToken
+                oauthswift.client.credential.oauthTokenSecret = UserOauthTokenSecret
+        }
+
+        return oauthswift.client
+    }
 
     // authorize
     func doAuthorization() {
@@ -57,7 +63,8 @@ class TwitterManager {
 
 //    func testRequestWithOAuthSwiftPOD(_ oauthswift: OAuth1Swift) {
     func testRequestWithOAuthSwiftPOD() {
-        let requestCustom = self.oauthswift.client.get("https://api.twitter.com/1.1/account/verify_credentials.json", parameters: [:]) { result in
+
+        let _ = self.oauthswiftClient.get("https://api.twitter.com/1.1/account/verify_credentials.json", parameters: [:]) { result in
               switch result {
               case .success(let response):
                   let jsonDict = try? response.jsonObject()
@@ -70,7 +77,7 @@ class TwitterManager {
 
     func prepareHeaders() -> HTTPHeaders? {
 
-        let oauth_consumer_key = self.oauthswift.client.credential.consumerKey
+        let oauth_consumer_key = self.oauthswiftClient.credential.consumerKey
 //        let oauth_nonce
 //        let oauth_signature
 //        let oauth_signature_method
