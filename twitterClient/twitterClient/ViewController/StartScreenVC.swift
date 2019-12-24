@@ -42,7 +42,8 @@ class StartScreenViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showFeed" {
-            if let TweetFeedTableViewController = segue.destination as? TweetFeedTableViewController {
+            if let _ = segue.destination as? TweetFeedTableViewController {
+//                need to write actions
 //                addItemViewController.delegate = self
 //                addItemViewController.todoList = todoList
             }

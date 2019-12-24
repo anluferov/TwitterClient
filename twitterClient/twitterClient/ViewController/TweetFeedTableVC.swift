@@ -13,20 +13,10 @@ class TweetFeedTableViewController: UITableViewController {
 
     let twitterManager = TwitterManager.instance
 
-//    var oauthswift = OAuth1Swift(
-//        consumerKey:    "MeVFWwIRcqjx3jOdT3WTF2za7",
-//        consumerSecret: "2HT6sXOIWzQZ9my8KY906GBxo5cd4hHzGZdt2d8DicAYncfN1J",
-//        requestTokenUrl: "https://api.twitter.com/oauth/request_token",
-//        authorizeUrl:    "https://api.twitter.com/oauth/authorize",
-//        accessTokenUrl:  "https://api.twitter.com/oauth/access_token"
-//    )
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
         twitterManager.testRequestWithOAuthSwiftPOD()
-//        twitterManager.requestForAccountSettings()
-
     }
 
     // MARK: - Table view data source

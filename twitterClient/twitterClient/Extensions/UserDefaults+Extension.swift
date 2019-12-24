@@ -12,14 +12,14 @@ extension UserDefaults {
 
     func setUserAuthorizedState( _ value: Bool) {
         if value {
-            set(true, forKey: "Is_User_Authorised")
+            set(true, forKey: "IsUserAuthorised")
         } else {
-            set(false, forKey: "Is_User_Authorised")
+            set(false, forKey: "IsUserAuthorised")
         }
     }
 
     func isUserAuthorized() -> Bool {
-        if let value = value(forKey: "Is_User_Authorised") as? Bool {
+        if let value = value(forKey: "IsUserAuthorised") as? Bool {
             return value
         } else {
             return false
