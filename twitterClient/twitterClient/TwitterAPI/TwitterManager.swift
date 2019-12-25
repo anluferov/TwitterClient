@@ -50,7 +50,7 @@ class TwitterManager {
               UserDefaults.standard.set(parameters["screen_name"], forKey: "UserName")
               UserDefaults.standard.setUserAuthorizedState(true)
 
-              self.testRequestWithOAuthSwiftPOD()
+              self.testRequestForHomeTimeline()
 
             case .failure(let error):
               print(error.localizedDescription)
@@ -60,11 +60,13 @@ class TwitterManager {
 
     // MARK: - another requests to Twitter API
 
-    func testRequestWithOAuthSwiftPOD() {
+    func testRequestForHomeTimeline() {
 
-        let _ = self.oauthswiftClient.get("https://api.twitter.com/1.1/account/verify_credentials.json", parameters: [:]) { result in
+        let _ = self.oauthswiftClient.get("https://api.twitter.com/1.1/statuses/home_timeline.json", parameters: ["count":5]) { result in
               switch result {
               case .success(let response):
+//                let parsedResult: TweetInstances = try! JSONDecoder().decode(TweetInstances.self, from: response.data)
+
                   let jsonDict = try? response.jsonObject()
                   print(String(describing: jsonDict))
               case .failure(let error):
@@ -72,6 +74,8 @@ class TwitterManager {
               }
           }
     }
+
+    
 
 
 //      NOTE: need to use with Alamofire
