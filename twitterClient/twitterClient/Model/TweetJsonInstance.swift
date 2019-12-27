@@ -9,7 +9,8 @@
 import Foundation
 import UIKit
 
-struct TweeterInfo: Decodable {
+struct TweetJsonInfo: Decodable {
+    
     var id: Double
     var createdAt: String
     var text: String
@@ -31,7 +32,7 @@ struct TweeterInfo: Decodable {
     }
 
     init(from decoder: Decoder) throws {
-        print("Into init")
+        print("Init from decoder")
 
         let rootContainer = try decoder.container(keyedBy: TweetJsonRootKeys.self)
 

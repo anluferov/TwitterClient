@@ -13,6 +13,7 @@ import Alamofire
 class TwitterManager {
 
     static let instance = TwitterManager()
+    static var tweetsInfo = [TweetInfo]()
 
     // MARK: - authorization requests to Twitter API
 
@@ -60,18 +61,33 @@ class TwitterManager {
 
     // MARK: - another requests to Twitter API
 
+    let host = URL(string: "https://api.twitter.com/1.1/")
+
     func testRequestForHomeTimeline() {
 
-        let _ = self.oauthswiftClient.get("https://api.twitter.com/1.1/statuses/home_timeline.json", parameters: ["count":5]) { result in
+        let hostHomeTimeline = (host?.appendingPathComponent("statuses/home_timeline.json"))!
+
+        let _ = self.oauthswiftClient.get(hostHomeTimeline, parameters: ["count":5]) { result in
               switch result {
               case .success(let response):
 
-                let parsedResult = try? JSONDecoder().decode([TweeterInfo].self, from: response.data)
-                print(parsedResult)
+//                let jsonDict = try? response.jsonObject()
+//                print(String(describing: jsonDict))
+
+                if let tweetsFromJSON = try? JSONDecoder().decode([TweetJsonInfo].self, from: response.data) {
+                    tweetsFromJSON.forEach { object in
+                        let tweet = TweetInfo.init(id: object.id, createdAt: object.createdAt,
+                                       text: object.text, profileImageUrl: object.profileImageUrl,
+                                       name: object.name, screenName: object.screenName)
+                        TwitterManager.self.tweetsInfo.append(tweet)
+                    }
+                }
+
               case .failure(let error):
                   print(error)
               }
           }
+
     }
 
     
