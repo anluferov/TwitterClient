@@ -65,10 +65,9 @@ class TwitterManager {
         let _ = self.oauthswiftClient.get("https://api.twitter.com/1.1/statuses/home_timeline.json", parameters: ["count":5]) { result in
               switch result {
               case .success(let response):
-//                let parsedResult: TweetInstances = try! JSONDecoder().decode(TweetInstances.self, from: response.data)
 
-                  let jsonDict = try? response.jsonObject()
-                  print(String(describing: jsonDict))
+                let parsedResult = try? JSONDecoder().decode([TweeterInfo].self, from: response.data)
+                print(parsedResult)
               case .failure(let error):
                   print(error)
               }

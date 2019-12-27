@@ -9,50 +9,40 @@
 import Foundation
 import UIKit
 
-class TweetInstance: Decodable {
-
-    // info about tweet
+struct TweeterInfo: Decodable {
     var id: Double
-    var created_at: String
+    var createdAt: String
     var text: String
-
-    // info about user
-    var profile_image_url: URL
+    var profileImageUrl: URL
     var name: String
-    var screen_name: String
+    var screenName: String
 
-    enum CodingKeys: String, CodingKey {
+    enum TweetJsonRootKeys: String, CodingKey {
         case id
-        case created_at
+        case createdAt = "created_at"
         case text
         case user
     }
 
-    enum UserCodingKeys: String, CodingKey {
-        case profile_image_url
+    enum UserJsonKeys: String, CodingKey {
+        case profileImageUrl = "profile_image_url"
         case name
-        case screen_name
+        case screenName = "screen_name"
     }
 
-    required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
+    init(from decoder: Decoder) throws {
+        print("Into init")
 
-        self.id = try container.decode(Double.self, forKey: .id)
-        self.created_at = try container.decode(String.self, forKey: .created_at)
-        self.text = try container.decode(String.self, forKey: .text)
+        let rootContainer = try decoder.container(keyedBy: TweetJsonRootKeys.self)
 
-        // Nested ratings
-        let userContainer = try container.nestedContainer(keyedBy: UserCodingKeys.self, forKey: .user)
-        self.profile_image_url = try userContainer.decode(URL.self, forKey: .profile_image_url)
+        self.id = try rootContainer.decode(Double.self, forKey: .id)
+        self.createdAt = try rootContainer.decode(String.self, forKey: .createdAt)
+        self.text = try rootContainer.decode(String.self, forKey: .text)
+
+        let userContainer = try rootContainer.nestedContainer(keyedBy: UserJsonKeys.self, forKey: .user)
+        self.profileImageUrl = try userContainer.decode(URL.self, forKey: .profileImageUrl)
         self.name = try userContainer.decode(String.self, forKey: .name)
-        self.screen_name = try userContainer.decode(String.self, forKey: .screen_name)
+        self.screenName = try userContainer.decode(String.self, forKey: .screenName)
     }
-}
-
-struct TweetInstances: Decodable {
-    enum CodingKeys: String, CodingKey {
-        case items
-    }
-    let items: [TweetInstance]
 }
 
