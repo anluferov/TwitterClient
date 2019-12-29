@@ -10,20 +10,18 @@ import Foundation
 
 class TweetInfo {
 
+    static var instanses = [TweetInfo]()
+
     var id: Double?
     var createdAt: String?
     var text: String?
-    var profileImageUrl: URL?
-    var name: String?
-    var screenName: String?
+    var user: UserInfo?
 
-    init(id: Double, createdAt: String, text: String, profileImageUrl: URL, name: String, screenName: String) {
+    init(id: Double, createdAt: String, text: String, user: UserInfo) {
         self.id = id
         self.createdAt = createdAt
         self.text = text
-        self.profileImageUrl = profileImageUrl
-        self.name = name
-        self.screenName = screenName
+        self.user = user
     }
 
     init() {

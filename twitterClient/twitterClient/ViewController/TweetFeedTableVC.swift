@@ -12,6 +12,7 @@ import OAuthSwift
 class TweetFeedTableViewController: UITableViewController {
 
     let twitterManager = TwitterManager.instance
+    var tweetsInfo = TweetInfo.instanses
 
     override func viewDidLoad() {
         super.viewDidLoad()

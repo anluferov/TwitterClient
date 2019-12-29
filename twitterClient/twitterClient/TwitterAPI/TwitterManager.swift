@@ -13,7 +13,8 @@ import Alamofire
 class TwitterManager {
 
     static let instance = TwitterManager()
-    static var tweetsInfo = [TweetInfo]()
+
+    var tweetsInfo = TweetInfo.instanses
 
     // MARK: - authorization requests to Twitter API
 
@@ -76,10 +77,9 @@ class TwitterManager {
 
                 if let tweetsFromJSON = try? JSONDecoder().decode([TweetJsonInfo].self, from: response.data) {
                     tweetsFromJSON.forEach { object in
-                        let tweet = TweetInfo.init(id: object.id, createdAt: object.createdAt,
-                                       text: object.text, profileImageUrl: object.profileImageUrl,
-                                       name: object.name, screenName: object.screenName)
-                        TwitterManager.self.tweetsInfo.append(tweet)
+                        let tweet = TweetInfo.init(id: object.id, createdAt: object.createdAt, text: object.text,
+                                                   user: UserInfo.init(profileImageUrl: object.profileImageUrl, name: object.name, screenName: object.screenName) )
+                        self.tweetsInfo.append(tweet)
                     }
                 }
 

@@ -11,6 +11,7 @@ import UIKit
 class StartScreenViewController: UIViewController {
 
     let twitterManager = TwitterManager.instance
+    var tweetsInfo = TweetInfo.instanses
 
     @IBOutlet weak var signInWithTwitterButton: UIButton!
     @IBOutlet weak var openFeedButton: UIButton!
