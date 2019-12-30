@@ -15,6 +15,12 @@ class TwitterManager {
     static let instance = TwitterManager()
     static var tweetsInfo = [TweetInfo]()
 
+    private var tweets = Set<TweetInfo>()
+
+    var tweetsArray: [TweetInfo] {
+        return tweets.sorted(by: < )
+    }
+
     // MARK: - authorization requests to Twitter API
 
     // create an instance and retain it
@@ -80,6 +86,7 @@ class TwitterManager {
                                               text: object.text, profileImageUrl: object.profileImageUrl,
                                               name: object.name, screenName: object.screenName)
                         TwitterManager.self.tweetsInfo.append(tweet)
+                        self.tweets.insert(tweet)
                     }
                 }
 

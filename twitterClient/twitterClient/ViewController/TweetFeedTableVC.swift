@@ -12,7 +12,6 @@ import OAuthSwift
 class TweetFeedTableViewController: UITableViewController {
 
     let twitterManager = TwitterManager.instance
-    var tweetsInfo = TwitterManager.tweetsInfo
 
     @IBOutlet weak var refreshFeedButton: UIBarButtonItem!
 
@@ -38,14 +37,14 @@ class TweetFeedTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         print(#function)
-        return tweetsInfo.count
+        return TwitterManager.tweetsInfo.count
     }
 
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print(#function)
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = tweetsInfo[indexPath.row].text
+        cell.textLabel?.text = TwitterManager.tweetsInfo[indexPath.row].text
         return cell
     }
 
