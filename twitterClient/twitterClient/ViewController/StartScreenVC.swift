@@ -11,10 +11,11 @@ import UIKit
 class StartScreenViewController: UIViewController {
 
     let twitterManager = TwitterManager.instance
+    var tweetsInfo = TwitterManager.tweetsInfo
 
     @IBOutlet weak var signInWithTwitterButton: UIButton!
     @IBOutlet weak var openFeedButton: UIButton!
-    @IBOutlet weak var cleanAuthorisedStateButton: UIButton!
+    @IBOutlet weak var cleanAuthorisedStateButton: UIBarButtonItem!
 
     override func loadView() {
         print(#function)
@@ -26,6 +27,7 @@ class StartScreenViewController: UIViewController {
         print(#function)
         
         super.viewDidLoad()
+        title = "Login Page"
         refreshViewController()
 
         NotificationCenter.default.addObserver(self, selector: #selector(refreshViewController),
@@ -33,12 +35,15 @@ class StartScreenViewController: UIViewController {
     }
 
     @IBAction func signInWithTwitterAction(_ sender: Any) {
+        print(#function)
         twitterManager.doAuthorization()
     }
 
     @IBAction func cleanAuthorisedStateAction(_ sender: Any) {
+        print(#function)
         UserDefaults.standard.setUserAuthorizedState(false)
     }
+
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showFeed" {

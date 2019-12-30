@@ -76,9 +76,9 @@ class TwitterManager {
 
                 if let tweetsFromJSON = try? JSONDecoder().decode([TweetJsonInfo].self, from: response.data) {
                     tweetsFromJSON.forEach { object in
-                        let tweet = TweetInfo.init(id: object.id, createdAt: object.createdAt,
-                                       text: object.text, profileImageUrl: object.profileImageUrl,
-                                       name: object.name, screenName: object.screenName)
+                        let tweet = TweetInfo(id: object.id, createdAt: object.createdAt,
+                                              text: object.text, profileImageUrl: object.profileImageUrl,
+                                              name: object.name, screenName: object.screenName)
                         TwitterManager.self.tweetsInfo.append(tweet)
                     }
                 }
@@ -87,10 +87,8 @@ class TwitterManager {
                   print(error)
               }
           }
-
     }
 
-    
 
 
 //      NOTE: need to use with Alamofire

@@ -12,34 +12,42 @@ import OAuthSwift
 class TweetFeedTableViewController: UITableViewController {
 
     let twitterManager = TwitterManager.instance
+    var tweetsInfo = TwitterManager.tweetsInfo
+
+    @IBOutlet weak var refreshFeedButton: UIBarButtonItem!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        title = "Feed Page"
         twitterManager.testRequestForHomeTimeline()
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+    }
+    
+    @IBAction func refreshFeedAction(_ sender: Any) {
+        print(#function)
+        tableView.reloadData()
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        print(#function)
+        return tweetsInfo.count
     }
 
-    /*
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        print(#function)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        cell.textLabel?.text = tweetsInfo[indexPath.row].text
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.

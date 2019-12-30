@@ -9,7 +9,7 @@
 import Foundation
 
 class TweetInfo {
-
+    
     var id: Double?
     var createdAt: String?
     var text: String?
@@ -17,7 +17,7 @@ class TweetInfo {
     var name: String?
     var screenName: String?
 
-    init(id: Double, createdAt: String, text: String, profileImageUrl: URL, name: String, screenName: String) {
+    init (id: Double, createdAt: String, text: String, profileImageUrl: URL, name: String, screenName: String?) {
         self.id = id
         self.createdAt = createdAt
         self.text = text
