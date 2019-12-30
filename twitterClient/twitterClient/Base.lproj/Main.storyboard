@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rDX-B3-Z7M">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZMn-QR-rVq">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Start Screen View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="StartScreenViewController" customModule="twitterClient" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="twitterClient" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -23,41 +23,25 @@
                                     <action selector="signInWithTwitterAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dtu-ao-jOH"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5b-e0-YPZ">
-                                <rect key="frame" x="127" y="433" width="121" height="30"/>
-                                <state key="normal" title="Open Tweet Feed"/>
-                                <connections>
-                                    <segue destination="n8U-fg-WdT" kind="show" identifier="showFeed" id="Ro8-oa-DHK"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="w5b-e0-YPZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="UwC-NO-7kb"/>
                             <constraint firstItem="U9p-8G-w1r" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="YRZ-is-Z7O"/>
                             <constraint firstItem="U9p-8G-w1r" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="j2u-o6-uES"/>
                             <constraint firstItem="U9p-8G-w1r" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="jk1-Nu-tK1"/>
                             <constraint firstItem="U9p-8G-w1r" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="qAh-pJ-Jqj"/>
-                            <constraint firstItem="w5b-e0-YPZ" firstAttribute="top" secondItem="U9p-8G-w1r" secondAttribute="bottom" constant="90.5" id="rxC-cE-God"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="9UO-vW-MQb">
-                        <barButtonItem key="rightBarButtonItem" title="Clean" id="A6D-aP-nti">
-                            <connections>
-                                <action selector="cleanAuthorisedStateAction:" destination="BYZ-38-t0r" id="H3g-NI-3L0"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="9UO-vW-MQb"/>
                     <connections>
-                        <outlet property="cleanAuthorisedStateButton" destination="A6D-aP-nti" id="fwA-oS-08d"/>
-                        <outlet property="openFeedButton" destination="w5b-e0-YPZ" id="NCN-e0-Y9Q"/>
                         <outlet property="signInWithTwitterButton" destination="U9p-8G-w1r" id="r6q-7D-iQd"/>
+                        <segue destination="n8U-fg-WdT" kind="show" identifier="showFeedScreenAfterLogin" id="pZG-nB-Ykv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1076" y="126.38680659670166"/>
+            <point key="canvasLocation" x="3351.1999999999998" y="354.87256371814095"/>
         </scene>
         <!--Tweet Feed Table View Controller-->
         <scene sceneID="afy-IT-ODI">
@@ -82,7 +66,12 @@
                             <outlet property="delegate" destination="n8U-fg-WdT" id="4aP-8P-WLV"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="lAm-DZ-dei">
+                    <navigationItem key="navigationItem" leftItemsSupplementBackButton="YES" id="lAm-DZ-dei">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="MXs-9n-AQs">
+                            <connections>
+                                <action selector="logoutAction:" destination="n8U-fg-WdT" id="U51-eW-pZe"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Refresh Feed" id="e8p-DH-xcY">
                             <connections>
                                 <action selector="refreshFeedAction:" destination="n8U-fg-WdT" id="I9r-bB-Sit"/>
@@ -95,28 +84,50 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LNM-c1-8ZV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2156" y="125.4872563718141"/>
+            <point key="canvasLocation" x="3351.1999999999998" y="1115.8920539730136"/>
+        </scene>
+        <!--Start View Controller-->
+        <scene sceneID="oeZ-1Q-Di5">
+            <objects>
+                <viewController id="meN-Tz-YHd" customClass="StartViewController" customModule="twitterClient" customModuleProvider="target" sceneMemberID="viewController">
+                    <imageView key="view" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="twitterBG" id="LMA-dC-5tq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
+                    <navigationItem key="navigationItem" id="Z5K-Ob-wsE"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="showLoginScreen" id="UgL-BL-Ajs"/>
+                        <segue destination="n8U-fg-WdT" kind="show" identifier="showFeedScreen" id="odb-9A-ZMg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KM8-Q5-TMh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2327.1999999999998" y="796.55172413793105"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="xwn-Pp-NLw">
+        <scene sceneID="oyL-cH-TJm">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rDX-B3-Z7M" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZMn-QR-rVq" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="nsY-BA-7vm">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="tfx-zi-jPN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="3fy-1T-g5w"/>
+                        <segue destination="meN-Tz-YHd" kind="relationship" relationship="rootViewController" id="svd-KX-2cq"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6Yk-dz-HOh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AcN-QN-Utz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="136.80000000000001" y="126.38680659670166"/>
+            <point key="canvasLocation" x="1388" y="796.55172413793105"/>
         </scene>
     </scenes>
     <resources>
         <image name="twitter-button" width="79" height="14"/>
+        <image name="twitterBG" width="960" height="720"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="odb-9A-ZMg"/>
+    </inferredMetricsTieBreakers>
 </document>

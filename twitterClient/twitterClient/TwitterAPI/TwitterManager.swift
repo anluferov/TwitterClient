@@ -50,8 +50,7 @@ class TwitterManager {
             case .success(let (credential, _, parameters)):
 
               print("Authorization is succesful! \n oauthToken: \(credential.oauthToken) \n oauthTokenSecret: \(credential.oauthTokenSecret) \n All parameters: \(parameters)")
-
-              #warning("TO DO: записывать данные в User Default через объект User")
+              
               UserDefaults.standard.set(credential.oauthToken, forKey: "UserOauthToken")
               UserDefaults.standard.set(credential.oauthTokenSecret, forKey: "UserOauthTokenSecret")
               UserDefaults.standard.set(parameters["screen_name"], forKey: "UserName")
