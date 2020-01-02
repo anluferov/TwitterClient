@@ -40,7 +40,7 @@ extension TweetInfo: Equatable {
 
 extension TweetInfo: Comparable {
     static func < (lhs: TweetInfo, rhs: TweetInfo) -> Bool {
-        return lhs.createdAt < rhs.createdAt
+        return lhs.id < rhs.id
     }
 }
 

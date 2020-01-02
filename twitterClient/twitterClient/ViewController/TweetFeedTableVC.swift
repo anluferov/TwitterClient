@@ -12,12 +12,16 @@ class TweetFeedTableViewController: UITableViewController {
 
     //MARK: - variables
 
-    var twitterManager = TwitterManager()
+    let twitterManager = TwitterManager.instance
+    private var twitterServerManager: TwitterServerManager!
+    let alert = UIAlertController(title: nil, message: "Loading of tweets...", preferredStyle: .alert)
 
-    let twitterServerManager = TwitterServerManager.instance
+//    var tweets: [TweetInfo] {
+//        return twitterManager.tweetsForTimeline()
+//    }
 
     var tweets: [TweetInfo] {
-        return twitterManager.tweetsForTimeline
+        return twitterServerManager.tweetsArray
     }
 
     //MARK: - IBOutlets
@@ -26,19 +30,19 @@ class TweetFeedTableViewController: UITableViewController {
 
     //MARK: - function for Loader
 
-    fileprivate func showLoader() {
-        let alert = UIAlertController(title: nil, message: "Loading of feed...", preferredStyle: .alert)
+    private func startLoader() {
+        if twitterServerManager.fetchingInProgress {
+            let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
+            loadingIndicator.hidesWhenStopped = true
+            loadingIndicator.style = UIActivityIndicatorView.Style.gray
+            loadingIndicator.startAnimating()
 
-        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
-        loadingIndicator.hidesWhenStopped = true
-        loadingIndicator.style = UIActivityIndicatorView.Style.gray
-        loadingIndicator.startAnimating();
-
-        alert.view.addSubview(loadingIndicator)
-        present(alert, animated: true, completion: nil)
+            alert.view.addSubview(loadingIndicator)
+            present(alert, animated: true, completion: nil)
+        }
     }
 
-    fileprivate func stopLoader() {
+    private func stopLoader() {
         dismiss(animated: false, completion: nil)
     }
 
@@ -50,14 +54,15 @@ class TweetFeedTableViewController: UITableViewController {
         navigationItem.hidesBackButton = true
         navigationItem.title = "Feed Page"
 
+        twitterServerManager = TwitterServerManager(delegate: self)
         twitterServerManager.requestForHomeTimeline()
 
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
 
     override func viewDidAppear(_ animated: Bool) {
+        startLoader()
         super.viewDidAppear(animated)
-        tableView.reloadData()
     }
 
     //MARK: - IBActions
@@ -92,4 +97,17 @@ class TweetFeedTableViewController: UITableViewController {
         return cell
     }
 
+}
+
+extension TweetFeedTableViewController: TwitterServerManagerDelegate {
+
+    func onFetchCompleted() {
+        
+        if let _ = self.presentedViewController {
+            stopLoader()
+        }
+
+        tableView.reloadData()
+    }
+    
 }
