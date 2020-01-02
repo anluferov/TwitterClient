@@ -44,7 +44,6 @@ extension TweetInfo: Comparable {
     }
 }
 
-
 // MARK: - Hashable
 
 extension TweetInfo: Hashable {

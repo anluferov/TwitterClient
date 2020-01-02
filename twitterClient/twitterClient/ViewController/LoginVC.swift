@@ -10,10 +10,15 @@ import UIKit
 
 class LoginViewController: UIViewController {
 
-    let twitterManager = TwitterManager.instance
-    var tweetsInfo = TwitterManager.tweetsInfo
+    //MARK: - variables
+
+    let twitterServerManager = TwitterServerManager.instance
+
+    //MARK: - IBOutlets
 
     @IBOutlet weak var signInWithTwitterButton: UIButton!
+
+    //MARK: - Lifrcycle functions
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,8 +30,10 @@ class LoginViewController: UIViewController {
                                                name: UserDefaults.didChangeNotification, object: nil)
     }
 
+    //MARK: - IBActions
+
     @IBAction func signInWithTwitterAction(_ sender: Any) {
-        twitterManager.doAuthorization()
+        twitterServerManager.doAuthorization()
     }
 
     @objc func openFeedAfterLogin() {

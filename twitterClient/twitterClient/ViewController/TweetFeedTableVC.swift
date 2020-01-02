@@ -7,30 +7,67 @@
 //
 
 import UIKit
-import OAuthSwift
 
 class TweetFeedTableViewController: UITableViewController {
 
-    let twitterManager = TwitterManager.instance
+    //MARK: - variables
+
+    var twitterManager = TwitterManager()
+
+    let twitterServerManager = TwitterServerManager.instance
+
+    var tweets: [TweetInfo] {
+        return twitterManager.tweetsForTimeline
+    }
+
+    //MARK: - IBOutlets
 
     @IBOutlet weak var refreshFeedButton: UIBarButtonItem!
+
+    //MARK: - function for Loader
+
+    fileprivate func showLoader() {
+        let alert = UIAlertController(title: nil, message: "Loading of feed...", preferredStyle: .alert)
+
+        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.style = UIActivityIndicatorView.Style.gray
+        loadingIndicator.startAnimating();
+
+        alert.view.addSubview(loadingIndicator)
+        present(alert, animated: true, completion: nil)
+    }
+
+    fileprivate func stopLoader() {
+        dismiss(animated: false, completion: nil)
+    }
+
+    //MARK: - Lifrcycle functions
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationItem.hidesBackButton = true
         navigationItem.title = "Feed Page"
-        
-        twitterManager.testRequestForHomeTimeline()
+
+        twitterServerManager.requestForHomeTimeline()
+
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        tableView.reloadData()
+    }
+
+    //MARK: - IBActions
     
     @IBAction func refreshFeedAction(_ sender: Any) {
         tableView.reloadData()
     }
 
     @IBAction func logoutAction(_ sender: Any) {
-        UserDefaults.standard.setUserAuthorizedState(false)
+        UserDefaults.standard.cleanAuthorizationTokens()
         _ = navigationController?.popViewController(animated: true)
     }
 
@@ -44,14 +81,14 @@ class TweetFeedTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         print(#function)
-        return TwitterManager.tweetsInfo.count
+        return tweets.count
     }
 
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print(#function)
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = TwitterManager.tweetsInfo[indexPath.row].text
+        cell.textLabel?.text = tweets[indexPath.row].text
         return cell
     }
 

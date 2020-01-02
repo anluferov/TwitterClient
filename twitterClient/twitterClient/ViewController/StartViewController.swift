@@ -10,6 +10,8 @@ import UIKit
 
 class StartViewController: UIViewController {
 
+    //MARK: - Lifrcycle functions
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
