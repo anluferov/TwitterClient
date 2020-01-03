@@ -10,15 +10,15 @@ import Foundation
 
 class TweetInfo {
     
-    let id: Double
+    let idStr: String
     let createdAt: String
     let text: String
     let profileImageUrl: URL
     let name: String
     let screenName: String
 
-    init (id: Double, createdAt: String, text: String, profileImageUrl: URL, name: String, screenName: String) {
-        self.id = id
+    init (idStr: String, createdAt: String, text: String, profileImageUrl: URL, name: String, screenName: String) {
+        self.idStr = idStr
         self.createdAt = createdAt
         self.text = text
         self.profileImageUrl = profileImageUrl
@@ -32,7 +32,7 @@ class TweetInfo {
 
 extension TweetInfo: Equatable {
     static func == (lhs: TweetInfo, rhs: TweetInfo) -> Bool {
-        return lhs.id == rhs.id
+        return lhs.idStr == rhs.idStr
     }
 }
 
@@ -40,7 +40,7 @@ extension TweetInfo: Equatable {
 
 extension TweetInfo: Comparable {
     static func < (lhs: TweetInfo, rhs: TweetInfo) -> Bool {
-        return lhs.id < rhs.id
+        return lhs.idStr < rhs.idStr
     }
 }
 
@@ -49,6 +49,6 @@ extension TweetInfo: Comparable {
 extension TweetInfo: Hashable {
 
     func hash(into hasher: inout Hasher) {
-        hasher.combine(id.hashValue)
+        hasher.combine(idStr.hashValue)
     }
 }

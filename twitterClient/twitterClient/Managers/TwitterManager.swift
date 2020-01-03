@@ -16,19 +16,37 @@ class TwitterManager {
 
     static let instance = TwitterManager()
 
-//    func tweetsForTimeline() -> [TweetInfo] {
-//
-//        let _ = twitterServerManager.tweets.map {
-//            print($0.id)
-//            print($0.createdAt)
-//            print($0.name)
-//            print($0.screenName)
-//            print($0.profileImageUrl)
-//            print($0.text)
-//        }
-//
-//        return twitterServerManager.tweets.sorted(by: > )
-//    }
+    var tweets = [TweetInfo]()
 
-    
+    func getTweets(count: Int?, lastId: String?, complition: @escaping (Result<[TweetInfo], Error>) -> ()) {
+
+        twitterServerManager.requestForHomeTimeline(count: count, lastId: lastId) { [weak self] result in
+            switch result {
+            case .success(let tweets):
+                if lastId == nil {
+                    self?.tweets.removeAll()
+                }
+                self?.tweets.append(contentsOf: tweets)
+
+            case .failure(let error):
+                // show error
+                break
+            }
+        }
+    }
+
+    func tweetsForTimeline() -> [TweetInfo] {
+
+        let _ = twitterServerManager.tweets.map {
+            print($0.idStr)
+            print($0.createdAt)
+            print($0.name)
+            print($0.screenName)
+            print($0.profileImageUrl)
+            print($0.text)
+        }
+
+        return twitterServerManager.tweets.sorted(by: > )
+    }
+
 }

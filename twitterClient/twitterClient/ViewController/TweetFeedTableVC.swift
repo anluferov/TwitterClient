@@ -14,15 +14,13 @@ class TweetFeedTableViewController: UITableViewController {
 
     let twitterManager = TwitterManager.instance
     private var twitterServerManager: TwitterServerManager!
-    let alert = UIAlertController(title: nil, message: "Loading of tweets...", preferredStyle: .alert)
+    var alert = UIAlertController()
 
 //    var tweets: [TweetInfo] {
 //        return twitterManager.tweetsForTimeline()
 //    }
 
-    var tweets: [TweetInfo] {
-        return twitterServerManager.tweetsArray
-    }
+    var tweets: [TweetInfo] = []
 
     //MARK: - IBOutlets
 
@@ -32,6 +30,7 @@ class TweetFeedTableViewController: UITableViewController {
 
     private func startLoader() {
         if twitterServerManager.fetchingInProgress {
+            alert = UIAlertController(title: nil, message: "Loading of tweets...", preferredStyle: .alert)
             let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
             loadingIndicator.hidesWhenStopped = true
             loadingIndicator.style = UIActivityIndicatorView.Style.gray
@@ -53,11 +52,33 @@ class TweetFeedTableViewController: UITableViewController {
 
         navigationItem.hidesBackButton = true
         navigationItem.title = "Feed Page"
+        tableView.dataSource = self
 
         twitterServerManager = TwitterServerManager(delegate: self)
-        twitterServerManager.requestForHomeTimeline()
 
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+//        let lastId = tweets.last?.idStr
+
+        request(count: 20)
+
+//        tableView.register(TweetTableViewCell.self, forCellReuseIdentifier: "Cell")
+    }
+
+    func request(count: Int, lastId: String? = nil) {
+        // show loader
+        twitterServerManager.requestForHomeTimeline(count: 20, lastId: lastId, complition: { [weak self] result in
+            // hide loader
+            switch result {
+            case .success(let tweets):
+                if lastId == nil {
+                    self?.tweets.removeAll()
+                }
+                self?.tweets.append(contentsOf: tweets)
+                self?.tableView.reloadData()
+            case .failure(let error):
+                // show error
+                break
+            }
+        })
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -92,17 +113,27 @@ class TweetFeedTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print(#function)
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = tweets[indexPath.row].text
-        return cell
+        return tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+//        cell.textLabel?.text = tweets[indexPath.row].text
+//        cell.tweet = tweets[indexPath.row]
+//        return cell
     }
 
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+
+        guard let cell = cell as? TweetTableViewCell else { return }
+        cell.configure(with: tweets[indexPath.row])
+
+        if indexPath.row + 10 == tweets.count {
+            request(count: 20, lastId: tweets.last?.idStr)
+        }
+    }
 }
 
 extension TweetFeedTableViewController: TwitterServerManagerDelegate {
 
     func onFetchCompleted() {
-        
+
         if let _ = self.presentedViewController {
             stopLoader()
         }

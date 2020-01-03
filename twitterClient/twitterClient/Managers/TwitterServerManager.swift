@@ -10,18 +10,12 @@ import Foundation
 import OAuthSwift
 import Alamofire
 
-protocol TwitterServerManagerDelegate: class {
-    func onFetchCompleted()
-}
-
 class TwitterServerManager {
 
     let host = URL(string: "https://api.twitter.com/1.1/")
-
-    private weak var delegate: TwitterServerManagerDelegate?
     
     static let instance = TwitterServerManager()
-    private var tweets = Set<TweetInfo>()
+    var tweets = Set<TweetInfo>()
 
     var fetchingInProgress = false
 
@@ -49,15 +43,6 @@ class TwitterServerManager {
         return oauthswift.client
     }
 
-    init(delegate: TwitterServerManagerDelegate) {
-        self.delegate = delegate
-    }
-
-    init() {
-        
-    }
-
-
     //MARK: - requests for Twitter API
 
     // authorize
@@ -79,36 +64,37 @@ class TwitterServerManager {
     }
 
     // get tweets from Timeline
-    func requestForHomeTimeline() {
+    func requestForHomeTimeline(count: Int, lastId: String, complition: @escaping (Result<[TweetInfo], Error>) -> ()) {
 
-        fetchingInProgress = true
         let hostHomeTimeline = (host?.appendingPathComponent("statuses/home_timeline.json"))!
 
-        let _ = self.oauthswiftClient.get(hostHomeTimeline, parameters: ["count":5,"exclude_replies":"true"]) { result in
+        // !!! form parameters, make arguments in function optional
+        let maxId = Int(lastId)
+
+        let _ = self.oauthswiftClient.get(hostHomeTimeline, parameters: ["count":count,"max_id":maxId,"exclude_replies":"true"]) { result in
               switch result {
               case .success(let response):
-
-                self.fetchingInProgress = false
 
 //                NOTE: implementation of parcing from OAuthSwift example
 //                let jsonDict = try? response.jsonObject()
 //                print(String(describing: jsonDict))
 
-                if let tweetsFromJSON = try? JSONDecoder().decode([TweetJsonInfo].self, from: response.data) {
-                    self.tweets = Set(tweetsFromJSON.map {
-                            TweetInfo(id: $0.id, createdAt: $0.createdAt,
+                do {
+                    let tweetsFromJSON = try JSONDecoder().decode([TweetJsonInfo].self, from: response.data)
+                    let tweets = Set(tweetsFromJSON.map {
+                        TweetInfo(idStr: $0.idStr, createdAt: $0.createdAt,
                             text: $0.text, profileImageUrl: $0.profileImageUrl,
                             name: $0.name, screenName: $0.screenName)
                     })
-
-                    self.delegate?.onFetchCompleted()
+                    complition(.success(tweets.sorted()))
+                } catch {
+                    complition(.failure(error))
                 }
-
               case .failure(let error):
                 self.fetchingInProgress = false
                 print(error)
+                complition(.failure(error))
 
-                self.delegate?.onFetchCompleted()
               }
           }
     }

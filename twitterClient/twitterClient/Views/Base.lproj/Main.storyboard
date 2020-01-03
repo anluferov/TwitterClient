@@ -52,13 +52,30 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="lwz-QE-yEY">
-                                <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="lwz-QE-yEY" customClass="TweetTableViewCell" customModule="twitterClient" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="51"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lwz-QE-yEY" id="hLW-J6-AWi">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="51"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uep-D6-9Qs">
+                                            <rect key="frame" x="60" y="10" width="295" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="uep-D6-9Qs" secondAttribute="bottom" constant="20" symbolic="YES" id="ApK-Ou-np9"/>
+                                        <constraint firstItem="uep-D6-9Qs" firstAttribute="top" secondItem="hLW-J6-AWi" secondAttribute="top" constant="10" id="HLn-PZ-ntV"/>
+                                        <constraint firstItem="uep-D6-9Qs" firstAttribute="leading" secondItem="hLW-J6-AWi" secondAttribute="leading" constant="60" id="OtB-QY-TQn"/>
+                                        <constraint firstAttribute="trailing" secondItem="uep-D6-9Qs" secondAttribute="trailing" constant="20" symbolic="YES" id="T4Z-33-oye"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="textTweetLabel" destination="uep-D6-9Qs" id="FlF-nL-lWU"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
