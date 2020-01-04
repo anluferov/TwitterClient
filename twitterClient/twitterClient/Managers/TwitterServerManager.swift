@@ -55,7 +55,7 @@ class TwitterServerManager {
     }
 
     // get tweets from Timeline
-    func requestForHomeTimeline(count: Int, maxId: String?, serverComplition: @escaping (Result<[TweetInfo], Error>) -> ()) {
+    func requestForHomeTimeline(count: Int, maxId: String?, serverComplition: @escaping (Result<[TweetInfo]>) -> ()) {
 
         let hostHomeTimeline = (host?.appendingPathComponent("statuses/home_timeline.json"))!
 
@@ -75,7 +75,7 @@ class TwitterServerManager {
 
                 do {
                     let tweets = try JSONDecoder().decode([TweetInfo].self, from: response.data)
-                    serverComplition(.success(tweets.sorted()))
+                    serverComplition(.success(tweets))
                 } catch {
                     serverComplition(.failure(error))
                 }

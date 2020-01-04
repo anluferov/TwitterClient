@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class TweetFeedTableViewController: UITableViewController {
 
@@ -45,6 +46,11 @@ class TweetFeedTableViewController: UITableViewController {
 
         navigationItem.hidesBackButton = true
         navigationItem.title = "Feed Page"
+
+//        tableView.rowHeight = UITableView.automaticDimension
+//        tableView.estimatedRowHeight = 600
+
+        tableView.rowHeight = 300
 
 //        let lastId = tweets.last?.idStr
 
@@ -92,20 +98,30 @@ class TweetFeedTableViewController: UITableViewController {
         return tweets.count
     }
 
-
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print(#function)
-        return tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TweetTableViewCell
+        let tweet = tweets[indexPath.row]
 
-//        final filling cells in method tableView(_:willDisplay:forRowAt:)
+        cell.textTweetLabel.text = tweet.text
+        cell.screenNameLabel.text = tweet.screenName
+        cell.nameLabel.text = tweet.name
+        cell.dateLabel.text = tweet.createdAt
+
+        let url = URL(string: tweet.profileImageUrl)!
+        cell.avatarImage.af_setImage(withURL: url)
+
+        cell.selectionStyle = .none
+
+        return cell
+
     }
 
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         print(#function)
 
-        guard let cell = cell as? TweetTableViewCell else { return }
-        cell.configure(with: tweets[indexPath.row])
-
+//        guard let cell = cell as? TweetTableViewCell else { return }
+//        cell.configure(with: tweets[indexPath.row])
 //        if indexPath.row + 10 == tweets.count {
 //            request(count: 20, lastId: tweets.last.idStr)
 //        }

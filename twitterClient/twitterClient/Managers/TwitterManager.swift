@@ -16,12 +16,12 @@ class TwitterManager {
 
     static let instance = TwitterManager()
 
-    func getTweets(count: Int, maxId: String?, managerComplition: @escaping (Result<[TweetInfo], Error>) -> ()) {
+    func getTweets(count: Int, maxId: String?, managerComplition: @escaping (Result<[TweetInfo]>) -> ()) {
 
         twitterServerManager.requestForHomeTimeline(count: count, maxId: maxId, serverComplition: { result in
             switch result {
             case .success(let tweets):
-                managerComplition(.success(tweets))
+                managerComplition(.success(tweets.sorted(by: > )))
                 // store tweets in Core Data async
                 
             case .failure(let error):

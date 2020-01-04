@@ -23,6 +23,7 @@
 		CEB09E7923AFFCD600C4D780 /* TwitterServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB09E7823AFFCD600C4D780 /* TwitterServerManager.swift */; };
 		CEB09E7C23B0FF9000C4D780 /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB09E7B23B0FF9000C4D780 /* UserDefaults+Extension.swift */; };
 		CEB09E7E23B1103B00C4D780 /* TweetFeedTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB09E7D23B1103B00C4D780 /* TweetFeedTableVC.swift */; };
+		CED9E8B423C1029C0073D4A4 /* TwitterCDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED9E8B323C1029C0073D4A4 /* TwitterCDManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		CEB09E7823AFFCD600C4D780 /* TwitterServerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterServerManager.swift; sourceTree = "<group>"; };
 		CEB09E7B23B0FF9000C4D780 /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 		CEB09E7D23B1103B00C4D780 /* TweetFeedTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetFeedTableVC.swift; sourceTree = "<group>"; };
+		CED9E8B323C1029C0073D4A4 /* TwitterCDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterCDManager.swift; sourceTree = "<group>"; };
 		D31998E610F1F8B0FCCE3640 /* Pods_twitterClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_twitterClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -146,6 +148,7 @@
 			children = (
 				CE941A4A23BD2DE0000CA952 /* TwitterManager.swift */,
 				CEB09E7823AFFCD600C4D780 /* TwitterServerManager.swift */,
+				CED9E8B323C1029C0073D4A4 /* TwitterCDManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 				CEB09E7E23B1103B00C4D780 /* TweetFeedTableVC.swift in Sources */,
 				CE5AA71F23BA3C4D00B0CF98 /* StartViewController.swift in Sources */,
 				CE5AA6FA23B949A800B0CF98 /* Model.xcdatamodeld in Sources */,
+				CED9E8B423C1029C0073D4A4 /* TwitterCDManager.swift in Sources */,
 				CE2E2A9923ABF8E5007A1871 /* SceneDelegate.swift in Sources */,
 				CEB09E7C23B0FF9000C4D780 /* UserDefaults+Extension.swift in Sources */,
 				CEB09E7923AFFCD600C4D780 /* TwitterServerManager.swift in Sources */,

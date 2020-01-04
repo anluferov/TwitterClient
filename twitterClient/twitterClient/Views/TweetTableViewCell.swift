@@ -10,16 +10,22 @@ import UIKit
 
 class TweetTableViewCell: UITableViewCell {
     
-    @IBOutlet private weak var textTweetLabel: UILabel!
+    @IBOutlet weak var textTweetLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var screenNameLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var avatarImage: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-
-    func configure(with tweet: TweetInfo?) {
-        if let tweet = tweet {
-            textTweetLabel?.text = tweet.text
-        }
-    }
+//
+//
+//
+//    func configure(with tweet: TweetInfo?) {
+//        if let tweet = tweet {
+//            textTweetLabel?.text = tweet.text
+//        }
+//    }
 
 }
