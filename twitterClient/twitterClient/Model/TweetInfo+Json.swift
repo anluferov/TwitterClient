@@ -9,14 +9,7 @@
 import Foundation
 import UIKit
 
-extension struct TweetJsonInfo: Decodable {
-    
-    var idStr: String
-    var createdAt: String
-    var text: String
-    var profileImageUrl: URL
-    var name: String
-    var screenName: String
+extension TweetInfo: Decodable {
 
     enum TweetJsonRootKeys: String, CodingKey {
         case idStr = "id_str"
@@ -41,7 +34,7 @@ extension struct TweetJsonInfo: Decodable {
         self.text = try rootContainer.decode(String.self, forKey: .text)
 
         let userContainer = try rootContainer.nestedContainer(keyedBy: UserJsonKeys.self, forKey: .user)
-        self.profileImageUrl = try userContainer.decode(URL.self, forKey: .profileImageUrl)
+        self.profileImageUrl = try userContainer.decode(String.self, forKey: .profileImageUrl)
         self.name = try userContainer.decode(String.self, forKey: .name)
         self.screenName = try userContainer.decode(String.self, forKey: .screenName)
     }

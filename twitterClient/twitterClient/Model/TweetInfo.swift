@@ -7,17 +7,18 @@
 //
 
 import Foundation
+import UIKit
 
-class TweetInfo {
+struct TweetInfo {
     
     let idStr: String
     let createdAt: String
     let text: String
-    let profileImageUrl: URL
+    let profileImageUrl: String
     let name: String
     let screenName: String
 
-    init (idStr: String, createdAt: String, text: String, profileImageUrl: URL, name: String, screenName: String) {
+    init (idStr: String, createdAt: String, text: String, profileImageUrl: String, name: String, screenName: String) {
         self.idStr = idStr
         self.createdAt = createdAt
         self.text = text

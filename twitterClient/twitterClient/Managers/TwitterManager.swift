@@ -16,24 +16,22 @@ class TwitterManager {
 
     static let instance = TwitterManager()
 
-    var tweets = [TweetInfo]()
+    func getTweets(count: Int, maxId: String?, managerComplition: @escaping (Result<[TweetInfo], Error>) -> ()) {
 
-    func getTweets(count: Int?, lastId: String?, complition: @escaping (Result<[TweetInfo], Error>) -> ()) {
-
-        twitterServerManager.requestForHomeTimeline(count: count, lastId: lastId) { [weak self] result in
+        twitterServerManager.requestForHomeTimeline(count: count, maxId: maxId, serverComplition: { result in
             switch result {
             case .success(let tweets):
-                if lastId == nil {
-                    self?.tweets.removeAll()
-                }
-                self?.tweets.append(contentsOf: tweets)
-
+                managerComplition(.success(tweets))
+                // store tweets in Core Data async
+                
             case .failure(let error):
-                // show error
-                break
+                // get tweets from Core Data sync
+                print(error)
+                managerComplition(.failure(error))
             }
-        }
+        })
     }
+
 
     func tweetsForTimeline() -> [TweetInfo] {
 
