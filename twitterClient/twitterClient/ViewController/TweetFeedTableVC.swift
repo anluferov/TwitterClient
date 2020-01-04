@@ -23,20 +23,20 @@ class TweetFeedTableViewController: UITableViewController {
 
     //MARK: - function for Loader
 
-//    private func startLoader() {
-//            alert = UIAlertController(title: nil, message: "Loading of tweets...", preferredStyle: .alert)
-//            let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
-//            loadingIndicator.hidesWhenStopped = true
-//            loadingIndicator.style = UIActivityIndicatorView.Style.gray
-//            loadingIndicator.startAnimating()
-//
-//            alert.view.addSubview(loadingIndicator)
-//            present(alert, animated: true, completion: nil)
-//    }
-//
-//    private func stopLoader() {
-//        dismiss(animated: false, completion: nil)
-//    }
+    private func startLoader(message: String) {
+            alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+            let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
+            loadingIndicator.hidesWhenStopped = true
+            loadingIndicator.style = UIActivityIndicatorView.Style.gray
+            loadingIndicator.startAnimating()
+
+            alert.view.addSubview(loadingIndicator)
+            present(alert, animated: true, completion: nil)
+    }
+
+    private func stopLoader() {
+        dismiss(animated: false, completion: nil)
+    }
 
     //MARK: - Lifrcycle functions
 
@@ -52,9 +52,9 @@ class TweetFeedTableViewController: UITableViewController {
     }
 
     func request(count: Int, maxId: String? = nil) {
-        // show loader
+        startLoader(message: "Loading tweets...")
         twitterManager.getTweets(count: count, maxId: maxId, managerComplition: { [weak self] result in
-            // hide loader
+            self?.stopLoader()
             switch result {
             case .success(let tweets):
                 self?.tweets.append(contentsOf: tweets)
