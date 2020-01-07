@@ -13,35 +13,43 @@ class TweetFeedTableViewController: UITableViewController {
 
     //MARK: - variables
 
-    let twitterManager = TwitterManager.instance
-    var alert = UIAlertController()
-
+    let twitterManager = TwitterManager()
     var tweets = [TweetInfo]()
 
-    //MARK: - IBOutlets
-
     @IBOutlet weak var refreshFeedButton: UIBarButtonItem!
+    var alert = UIAlertController()
 
-    //MARK: - function for Loader
+    var isFetchingInProgress = false
 
-    private func startLoader(message: String) {
-            alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-            let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
-            loadingIndicator.hidesWhenStopped = true
-            loadingIndicator.style = UIActivityIndicatorView.Style.gray
-            loadingIndicator.startAnimating()
+    //MARK: - function for Alerts
 
-            alert.view.addSubview(loadingIndicator)
-            present(alert, animated: true, completion: nil)
+    private func startFetchingTweetsLoader(message: String) {
+        alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.style = UIActivityIndicatorView.Style.gray
+        loadingIndicator.startAnimating()
+
+        alert.view.addSubview(loadingIndicator)
+        present(alert, animated: true, completion: nil)
     }
 
-    private func stopLoader() {
+    private func stopFetchingTweetsLoader() {
         dismiss(animated: false, completion: nil)
     }
 
-    //MARK: - Lifrcycle functions
+    private func presentErrorAlert(message: String) {
+        alert = UIAlertController(title: "Error!", message: message, preferredStyle: .alert)
+        let alertButton = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.addAction(alertButton)
+
+        present(alert, animated: true, completion: nil)
+    }
+
+    //MARK: - VC Lifecycle functions
 
     override func viewDidLoad() {
+        print(#function)
         super.viewDidLoad()
 
         navigationItem.hidesBackButton = true
@@ -54,26 +62,16 @@ class TweetFeedTableViewController: UITableViewController {
 
 //        let lastId = tweets.last?.idStr
 
-        request(count: 20)
-    }
-
-    func request(count: Int, maxId: String? = nil) {
-        startLoader(message: "Loading tweets...")
-        twitterManager.getTweets(count: count, maxId: maxId, managerComplition: { [weak self] result in
-            self?.stopLoader()
-            switch result {
-            case .success(let tweets):
-                self?.tweets.append(contentsOf: tweets)
-                self?.tableView.reloadData()
-
-            case .failure(let error):
-                print(error)
-            }
-        })
+        requestForTweets(count: 20)
     }
 
     override func viewDidAppear(_ animated: Bool) {
+        print(#function)
         super.viewDidAppear(animated)
+
+        if isFetchingInProgress {
+            startFetchingTweetsLoader(message: "Loading tweets...")
+        }
     }
 
     //MARK: - IBActions
@@ -87,7 +85,7 @@ class TweetFeedTableViewController: UITableViewController {
         _ = navigationController?.popViewController(animated: true)
     }
 
-    // MARK: - Table view data source
+    // MARK: - TableView data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -125,5 +123,26 @@ class TweetFeedTableViewController: UITableViewController {
 //        if indexPath.row + 10 == tweets.count {
 //            request(count: 20, lastId: tweets.last.idStr)
 //        }
+    }
+
+    //MARK: - work with tweets data
+
+    func requestForTweets(count: Int, maxId: String? = nil) {
+        isFetchingInProgress = true
+        twitterManager.getTweets(count: count, maxId: maxId, managerComplition: { [weak self] result in
+            switch result {
+            case .success(let tweets):
+                self?.isFetchingInProgress = false
+                self?.stopFetchingTweetsLoader()
+                self?.tweets.append(contentsOf: tweets)
+                self?.tableView.reloadData()
+
+            case .failure(let error):
+                print(error)
+                self?.isFetchingInProgress = false
+                self?.stopFetchingTweetsLoader()
+                self?.presentErrorAlert(message: error.localizedDescription)
+            }
+        })
     }
 }

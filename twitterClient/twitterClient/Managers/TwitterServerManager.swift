@@ -14,7 +14,6 @@ class TwitterServerManager {
 
     let host = URL(string: "https://api.twitter.com/1.1/")
     
-    static let instance = TwitterServerManager()
     var tweets = [TweetInfo]()
 
     // create an instance and retain it
@@ -55,7 +54,7 @@ class TwitterServerManager {
     }
 
     // get tweets from Timeline
-    func requestForHomeTimeline(count: Int, maxId: String?, serverComplition: @escaping (Result<[TweetInfo]>) -> ()) {
+    func fetchHomeTimelineTweets(count: Int, maxId: String?, serverComplition: @escaping (Result<[TweetInfo]>) -> ()) {
 
         let hostHomeTimeline = (host?.appendingPathComponent("statuses/home_timeline.json"))!
 

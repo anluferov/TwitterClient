@@ -12,8 +12,8 @@ class LoginViewController: UIViewController {
 
     //MARK: - variables
 
-    let twitterManager = TwitterManager.instance
-    let twitterServerManager = TwitterServerManager.instance
+    let twitterManager = TwitterManager()
+    let twitterServerManager = TwitterServerManager()
 
     //MARK: - IBOutlets
 

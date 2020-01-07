@@ -12,22 +12,31 @@ import Alamofire
 
 class TwitterManager {
 
-    let twitterServerManager = TwitterServerManager.instance
+    let twitterServerManager = TwitterServerManager()
+    let twitterCoreDataManager = TwitterCoreDataManager()
 
-    static let instance = TwitterManager()
 
     func getTweets(count: Int, maxId: String?, managerComplition: @escaping (Result<[TweetInfo]>) -> ()) {
 
-        twitterServerManager.requestForHomeTimeline(count: count, maxId: maxId, serverComplition: { result in
+        twitterServerManager.fetchHomeTimelineTweets(count: count, maxId: maxId, serverComplition: { result in
             switch result {
             case .success(let tweets):
                 managerComplition(.success(tweets.sorted(by: > )))
-                // store tweets in Core Data async
+                self.twitterCoreDataManager.save(tweets: tweets)
+
+                // !!! store tweets in Core Data async
                 
-            case .failure(let error):
-                // get tweets from Core Data sync
-                print(error)
-                managerComplition(.failure(error))
+            case .failure(_):
+
+                self.twitterCoreDataManager.fetch(count: count, maxId: maxId, coredataComplition: { result in
+                    switch result {
+                    case .success(let tweets):
+                        managerComplition(.success(tweets.sorted(by: > )))
+                    case .failure(let error):
+                        print(error)
+                        managerComplition(.failure(error))
+                    }
+                })
             }
         })
     }
