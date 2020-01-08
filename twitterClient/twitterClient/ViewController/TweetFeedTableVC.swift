@@ -55,10 +55,8 @@ class TweetFeedTableViewController: UITableViewController {
         navigationItem.hidesBackButton = true
         navigationItem.title = "Feed Page"
 
-//        tableView.rowHeight = UITableView.automaticDimension
-//        tableView.estimatedRowHeight = 600
-
-        tableView.rowHeight = 300
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 200
 
 //        let lastId = tweets.last?.idStr
 
@@ -106,14 +104,32 @@ class TweetFeedTableViewController: UITableViewController {
         cell.nameLabel.text = tweet.name
         cell.dateLabel.text = tweet.createdAt
 
-        let url = URL(string: tweet.profileImageUrl)!
-        cell.avatarImage.af_setImage(withURL: url)
+        let avatarUrl = URL(string: tweet.profileImageUrl)!
+        print(avatarUrl)
+        cell.avatarImage.af_setImage(withURL: avatarUrl)
+
+//        let types: NSTextCheckingResult.CheckingType = .link
+//        let detector = try? NSDataDetector(types: types.rawValue)
+//
+//        if let detect = detector {
+//            let matches = detect.matches(in: tweet.text, options: .reportCompletion, range: NSMakeRange(0, tweet.text.string.count))
+//
+//            for match in matches {
+//                print(match.url!)
+//                cell.messageImage.af_setImage(withURL: match.url!)
+//            }
+//
+//        }
 
         cell.selectionStyle = .none
 
         return cell
 
     }
+
+//    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+//      return UITableView.automaticDimension
+//    }
 
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         print(#function)
