@@ -13,15 +13,15 @@ struct TweetInfo {
     
     let idStr: String
     let createdAt: String
-    let text: String
+    let fullText: String
     let profileImageUrl: String
     let name: String
     let screenName: String
 
-    init (idStr: String, createdAt: String, text: String, profileImageUrl: String, name: String, screenName: String) {
+    init (idStr: String, createdAt: String, fullText: String, profileImageUrl: String, name: String, screenName: String) {
         self.idStr = idStr
         self.createdAt = createdAt
-        self.text = text
+        self.fullText = fullText
         self.profileImageUrl = profileImageUrl
         self.name = name
         self.screenName = screenName

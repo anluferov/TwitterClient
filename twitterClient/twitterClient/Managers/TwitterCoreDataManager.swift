@@ -34,7 +34,7 @@ class TwitterCoreDataManager {
         let _ = tweets.map {
             tweetData.setValue($0.idStr, forKeyPath: "idStr")
             tweetData.setValue($0.createdAt, forKeyPath: "createdAt")
-            tweetData.setValue($0.text, forKeyPath: "text")
+            tweetData.setValue($0.fullText, forKeyPath: "fullText")
             tweetData.setValue($0.profileImageUrl, forKeyPath: "profileImageUrl")
             tweetData.setValue($0.name, forKeyPath: "name")
             tweetData.setValue($0.screenName, forKeyPath: "screenName")
@@ -70,7 +70,7 @@ class TwitterCoreDataManager {
             tweets.append(TweetInfo.init(
                     idStr: $0.value(forKeyPath: "idStr") as! String,
                     createdAt: $0.value(forKeyPath: "createdAt") as! String,
-                    text: $0.value(forKeyPath: "text") as! String,
+                    fullText: $0.value(forKeyPath: "fullText") as! String,
                     profileImageUrl: $0.value(forKeyPath: "profileImageUrl") as! String,
                     name: $0.value(forKeyPath: "name") as! String,
                     screenName: $0.value(forKeyPath: "screenName") as! String

@@ -59,7 +59,9 @@ class TwitterServerManager {
         let hostHomeTimeline = (host?.appendingPathComponent("statuses/home_timeline.json"))!
 
         var httpParameters: OAuthSwift.Parameters = ["count": count,
-                                                 "exclude_replies": "true"]
+                                                 "exclude_replies": "true",
+                                                 "tweet_mode": "extended"
+        ]
         if let maxId = maxId {
             httpParameters["max_id"] = maxId
         }

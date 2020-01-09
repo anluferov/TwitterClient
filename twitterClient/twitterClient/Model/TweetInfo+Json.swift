@@ -14,7 +14,7 @@ extension TweetInfo: Decodable {
     enum TweetJsonRootKeys: String, CodingKey {
         case idStr = "id_str"
         case createdAt = "created_at"
-        case text
+        case fullText = "full_text"
         case user
     }
 
@@ -30,7 +30,7 @@ extension TweetInfo: Decodable {
         let rootContainer = try decoder.container(keyedBy: TweetJsonRootKeys.self)
 
         self.idStr = try rootContainer.decode(String.self, forKey: .idStr)
-        self.text = try rootContainer.decode(String.self, forKey: .text)
+        self.fullText = try rootContainer.decode(String.self, forKey: .fullText)
         self.createdAt = try rootContainer.decode(String.self, forKey: .createdAt)
 
         let userContainer = try rootContainer.nestedContainer(keyedBy: UserJsonKeys.self, forKey: .user)

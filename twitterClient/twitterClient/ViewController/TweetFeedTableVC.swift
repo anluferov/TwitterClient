@@ -100,7 +100,7 @@ class TweetFeedTableViewController: UITableViewController {
         let tweet = tweets[indexPath.row]
 
         //fill tweet text
-        cell.textTweetLabel.text = tweet.text
+        cell.textTweetLabel.text = tweet.fullText
 
         //fill username
         cell.screenNameLabel.text = " @" + tweet.screenName
