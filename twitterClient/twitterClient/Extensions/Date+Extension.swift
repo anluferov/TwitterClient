@@ -15,24 +15,19 @@ extension Date {
         let interval = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: self, to: Date())
 
         if let year = interval.year, year > 0 {
-            return year == 1 ? "\(year)" + " " + "year ago" :
-                "\(year)" + " " + "years ago"
+            return "\(year)" + " " + "y."
         } else if let month = interval.month, month > 0 {
-            return month == 1 ? "\(month)" + " " + "month ago" :
-                "\(month)" + " " + "months ago"
+            return "\(month)" + " " + "m."
         } else if let day = interval.day, day > 0 {
-            return day == 1 ? "\(day)" + " " + "day ago" :
-                "\(day)" + " " + "days ago"
+            return "\(day)" + " " + "d."
         } else if let hour = interval.hour, hour > 0 {
-            return hour == 1 ? "\(hour)" + " " + "hour ago" :
-                "\(hour)" + " " + "hours ago"
+            return "\(hour)" + " " + "h."
         } else if let minute = interval.minute, minute > 0 {
-            return minute == 1 ? "\(minute)" + " " + "minute ago" :
-                "\(minute)" + " " + "minutes ago"
-        } else if let second = interval.second, second > 10 {
-            return "\(second)" + " " + "seconds ago"
+            return "\(minute)" + " " + "min."
+        } else if let second = interval.second, second > 1 {
+            return "\(second)" + " " + "sec."
         } else {
-            return "a moment ago"
+            return "just now"
         }
     }
 }

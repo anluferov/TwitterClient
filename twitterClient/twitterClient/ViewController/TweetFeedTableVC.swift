@@ -99,28 +99,22 @@ class TweetFeedTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TweetTableViewCell
         let tweet = tweets[indexPath.row]
 
+        //fill tweet text
         cell.textTweetLabel.text = tweet.text
-        cell.screenNameLabel.text = tweet.screenName
+
+        //fill username
+        cell.screenNameLabel.text = " @" + tweet.screenName
+
+        //fill name of account
         cell.nameLabel.text = tweet.name
 
+        //fill avatar
         let avatarUrl = URL(string: tweet.profileImageUrl)!
         print(avatarUrl)
         cell.avatarImage.af_setImage(withURL: avatarUrl)
 
+        //fill date ago for tweet
         cell.dateLabel.text = tweet.createdAt.getTimeAgoFormat()
-
-//        let types: NSTextCheckingResult.CheckingType = .link
-//        let detector = try? NSDataDetector(types: types.rawValue)
-//
-//        if let detect = detector {
-//            let matches = detect.matches(in: tweet.text, options: .reportCompletion, range: NSMakeRange(0, tweet.text.string.count))
-//
-//            for match in matches {
-//                print(match.url!)
-//                cell.messageImage.af_setImage(withURL: match.url!)
-//            }
-//
-//        }
 
         cell.selectionStyle = .none
 
