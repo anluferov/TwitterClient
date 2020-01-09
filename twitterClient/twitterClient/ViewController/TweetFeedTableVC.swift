@@ -21,6 +21,56 @@ class TweetFeedTableViewController: UITableViewController {
 
     var isFetchingInProgress = false
 
+    //MARK: - VC Lifecycle functions
+
+    override func viewDidLoad() {
+        print(#function)
+        super.viewDidLoad()
+
+        navigationItem.hidesBackButton = true
+        navigationItem.title = "Feed Page"
+
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 200
+
+//        let lastId = tweets.last?.idStr
+
+        addCreateTweetButton()
+
+        requestForTweets(count: 20)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        print(#function)
+        super.viewDidAppear(animated)
+
+        if isFetchingInProgress {
+            startFetchingTweetsLoader(message: "Loading tweets...")
+        }
+    }
+
+    //MARK: - IBActions
+    
+    @IBAction func refreshFeedAction(_ sender: Any) {
+        tableView.reloadData()
+    }
+
+    @IBAction func logoutAction(_ sender: Any) {
+        UserDefaults.standard.cleanAuthorizationTokens()
+        _ = navigationController?.popViewController(animated: true)
+    }
+
+    //MARK: - createNewTweet button
+
+    func addCreateTweetButton() {
+        var createTweetButton = UIButton(frame: CGRect(origin: CGPoint(x: self.view.frame.width * 3/4, y: self.view.frame.height * 5/6),
+                                                size: CGSize(width: 50.0, height: 50.0)))
+//        createTweetButton.backgroundColor = .blue
+        self.navigationController?.view.addSubview(createTweetButton)
+        createTweetButton.setImage(UIImage(named: "plusButton"), for: .normal)
+    }
+    
+
     //MARK: - function for Alerts
 
     private func startFetchingTweetsLoader(message: String) {
@@ -44,43 +94,6 @@ class TweetFeedTableViewController: UITableViewController {
         alert.addAction(alertButton)
 
         present(alert, animated: true, completion: nil)
-    }
-
-    //MARK: - VC Lifecycle functions
-
-    override func viewDidLoad() {
-        print(#function)
-        super.viewDidLoad()
-
-        navigationItem.hidesBackButton = true
-        navigationItem.title = "Feed Page"
-
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 200
-
-//        let lastId = tweets.last?.idStr
-
-        requestForTweets(count: 20)
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        print(#function)
-        super.viewDidAppear(animated)
-
-        if isFetchingInProgress {
-            startFetchingTweetsLoader(message: "Loading tweets...")
-        }
-    }
-
-    //MARK: - IBActions
-    
-    @IBAction func refreshFeedAction(_ sender: Any) {
-        tableView.reloadData()
-    }
-
-    @IBAction func logoutAction(_ sender: Any) {
-        UserDefaults.standard.cleanAuthorizationTokens()
-        _ = navigationController?.popViewController(animated: true)
     }
 
     // MARK: - TableView data source

@@ -81,5 +81,15 @@ class TwitterCoreDataManager {
         coredataComplition(.success(tweets))
     }
 
+//    func deleteAllData() {
+//
+//        do {
+//            try appDelegate.persistentStoreCoordinator.destroyPersistentStoreAtURL(persistentStoreURL, withType: NSSQLiteStoreType, options: nil)
+//
+//        } catch {
+//            // Error Handling
+//        }
+//    }
+
 }
 
