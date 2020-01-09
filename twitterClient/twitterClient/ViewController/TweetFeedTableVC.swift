@@ -110,8 +110,10 @@ class TweetFeedTableViewController: UITableViewController {
 
         //fill avatar
         let avatarUrl = URL(string: tweet.profileImageUrl)!
-        print(avatarUrl)
-        cell.avatarImage.af_setImage(withURL: avatarUrl)
+        cell.avatarImage.af_setImage(
+            withURL: avatarUrl,
+            filter: CircleFilter()
+        )
 
         //fill date ago for tweet
         cell.dateLabel.text = tweet.createdAt.getTimeAgoFormat()
