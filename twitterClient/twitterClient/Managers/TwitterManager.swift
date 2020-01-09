@@ -41,19 +41,4 @@ class TwitterManager {
         })
     }
 
-
-    func tweetsForTimeline() -> [TweetInfo] {
-
-        let _ = twitterServerManager.tweets.map {
-            print($0.idStr)
-            print($0.createdAt)
-            print($0.name)
-            print($0.screenName)
-            print($0.profileImageUrl)
-            print($0.text)
-        }
-
-        return twitterServerManager.tweets.sorted(by: > )
-    }
-
 }

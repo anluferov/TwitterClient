@@ -102,11 +102,12 @@ class TweetFeedTableViewController: UITableViewController {
         cell.textTweetLabel.text = tweet.text
         cell.screenNameLabel.text = tweet.screenName
         cell.nameLabel.text = tweet.name
-        cell.dateLabel.text = tweet.createdAt
 
         let avatarUrl = URL(string: tweet.profileImageUrl)!
         print(avatarUrl)
         cell.avatarImage.af_setImage(withURL: avatarUrl)
+
+        cell.dateLabel.text = tweet.createdAt.getTimeAgoFormat()
 
 //        let types: NSTextCheckingResult.CheckingType = .link
 //        let detector = try? NSDataDetector(types: types.rawValue)

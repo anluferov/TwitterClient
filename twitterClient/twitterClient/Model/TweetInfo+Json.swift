@@ -30,13 +30,14 @@ extension TweetInfo: Decodable {
         let rootContainer = try decoder.container(keyedBy: TweetJsonRootKeys.self)
 
         self.idStr = try rootContainer.decode(String.self, forKey: .idStr)
-        self.createdAt = try rootContainer.decode(String.self, forKey: .createdAt)
         self.text = try rootContainer.decode(String.self, forKey: .text)
+        self.createdAt = try rootContainer.decode(String.self, forKey: .createdAt)
 
         let userContainer = try rootContainer.nestedContainer(keyedBy: UserJsonKeys.self, forKey: .user)
         self.profileImageUrl = try userContainer.decode(String.self, forKey: .profileImageUrl)
         self.name = try userContainer.decode(String.self, forKey: .name)
         self.screenName = try userContainer.decode(String.self, forKey: .screenName)
     }
+
 }
 
