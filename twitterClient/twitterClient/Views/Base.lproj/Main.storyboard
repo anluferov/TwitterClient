@@ -171,9 +171,10 @@
         <scene sceneID="oeZ-1Q-Di5">
             <objects>
                 <viewController id="meN-Tz-YHd" customClass="StartViewController" customModule="twitterClient" customModuleProvider="target" sceneMemberID="viewController">
-                    <imageView key="view" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="twitterBG" id="LMA-dC-5tq">
+                    <imageView key="view" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="fLl-dO-wsE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </imageView>
                     <navigationItem key="navigationItem" id="Z5K-Ob-wsE"/>
                     <connections>
@@ -206,7 +207,6 @@
     </scenes>
     <resources>
         <image name="twitter-button" width="79" height="14"/>
-        <image name="twitterBG" width="960" height="720"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="odb-9A-ZMg"/>

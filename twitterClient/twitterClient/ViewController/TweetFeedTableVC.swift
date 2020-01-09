@@ -33,8 +33,6 @@ class TweetFeedTableViewController: UITableViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 200
 
-//        let lastId = tweets.last?.idStr
-
         addCreateTweetButton()
 
         requestForTweets(count: 20)
@@ -146,9 +144,10 @@ class TweetFeedTableViewController: UITableViewController {
 
 //        guard let cell = cell as? TweetTableViewCell else { return }
 //        cell.configure(with: tweets[indexPath.row])
-//        if indexPath.row + 10 == tweets.count {
-//            request(count: 20, lastId: tweets.last.idStr)
-//        }
+
+        if indexPath.row + 10 == tweets.count {
+            requestForTweets(count: 20, maxId: tweets.last?.idStr)
+        }
     }
 
     //MARK: - work with tweets data
