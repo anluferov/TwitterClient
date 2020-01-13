@@ -40,13 +40,13 @@ class TwitterCoreDataManager {
 
         tweets.forEach { TweetInfoCoreData(tweetInfo: $0, context: managedContext) }
 
-//        persistentContainer.performBackgroundTask{ managedContext in
+        persistentContainer.performBackgroundTask{ managedContext in
             do {
                 try managedContext.save()
             } catch let error as NSError {
                 print("Could not save. \(error), \(error.userInfo)")
             }
-//        }
+        }
     }
 
     // fetching tweets from Core Data
