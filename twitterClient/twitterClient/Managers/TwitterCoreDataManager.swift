@@ -18,45 +18,38 @@ class TwitterCoreDataManager {
     // MARK: - Core Data stack
 
     lazy var persistentContainer: NSPersistentContainer = {
-
         let container = NSPersistentContainer(name: "TweetInfoModel")
-
-        print(container.persistentStoreDescriptions.first?.url)
-
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
+
+        //        // information about URL of SQL DB
+        //        print(container.persistentStoreDescriptions.first?.url)
+
         return container
     }()
 
     // MARK: - work with core data
+
     //saving tweets to Core Data
 
     func save(tweets: [TweetInfo]) {
         let managedContext = persistentContainer.viewContext
 
-//        let entity = NSEntityDescription.entity(forEntityName: "TweetInfoCoreData", in: managedContext)!
-//        let tweetData = NSManagedObject(entity: entity, insertInto: managedContext)
-//
-//        let _ = tweets.map {
-//            tweetData.setValue($0.idStr, forKeyPath: "idStr")
-//            tweetData.setValue($0.createdAt, forKeyPath: "createdAt")
-//            tweetData.setValue($0.fullText, forKeyPath: "fullText")
-//            tweetData.setValue($0.profileImageUrl, forKeyPath: "profileImageUrl")
-//            tweetData.setValue($0.name, forKeyPath: "name")
-//            tweetData.setValue($0.screenName, forKeyPath: "screenName")
-//        }
-
         tweets.forEach { TweetInfoCoreData(tweetInfo: $0, context: managedContext) }
 
-        do {
-            try managedContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
+        persistentContainer.performBackgroundTask{ managedContext in
+            do {
+                try managedContext.save()
+            } catch let error as NSError {
+                print("Could not save. \(error), \(error.userInfo)")
+            }
         }
     }
+
+    // fetching tweets from Core Data
 
     func fetch(count: Int, maxId: String? = nil, coredataComplition: (Result<[TweetInfo]>) -> ()) {
         let managedContext = persistentContainer.viewContext
@@ -80,29 +73,18 @@ class TwitterCoreDataManager {
 
         coredataComplition(.success(tweets))
     }
-
-//    func deleteAllData() {
-//
-//        do {
-//            try appDelegate.persistentStoreCoordinator.destroyPersistentStoreAtURL(persistentStoreURL, withType: NSSQLiteStoreType, options: nil)
-//
-//        } catch {
-//            // Error Handling
-//        }
-//    }
-
 }
 
 extension TweetInfoCoreData {
-   @discardableResult
-   convenience init(tweetInfo: TweetInfo, context: NSManagedObjectContext) {
-       self.init(context: context)
-       idStr = tweetInfo.idStr
-       createdAt = tweetInfo.createdAt
-       fullText = tweetInfo.fullText
-       profileImageUrl = tweetInfo.profileImageUrl
-       name = tweetInfo.name
-       screenName = tweetInfo.screenName
-   }
+    @discardableResult
+    convenience init(tweetInfo: TweetInfo, context: NSManagedObjectContext) {
+        self.init(context: context)
+        idStr = tweetInfo.idStr
+        createdAt = tweetInfo.createdAt
+        fullText = tweetInfo.fullText
+        profileImageUrl = tweetInfo.profileImageUrl
+        name = tweetInfo.name
+        screenName = tweetInfo.screenName
+    }
 }
 
