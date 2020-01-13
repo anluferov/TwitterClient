@@ -40,18 +40,18 @@ class TwitterCoreDataManager {
 
         tweets.forEach { TweetInfoCoreData(tweetInfo: $0, context: managedContext) }
 
-        persistentContainer.performBackgroundTask{ managedContext in
+//        persistentContainer.performBackgroundTask{ managedContext in
             do {
                 try managedContext.save()
             } catch let error as NSError {
                 print("Could not save. \(error), \(error.userInfo)")
             }
-        }
+//        }
     }
 
     // fetching tweets from Core Data
 
-    func fetch(count: Int, maxId: String? = nil, coredataComplition: (Result<[TweetInfo]>) -> ()) {
+    func fetch(count: Int, maxId: String? = nil, sinceId: String? = nil, coredataComplition: (Result<[TweetInfo]>) -> ()) {
         let managedContext = persistentContainer.viewContext
 
 //        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "TweetInfoCoreData")
@@ -59,7 +59,6 @@ class TwitterCoreDataManager {
 
         do {
             self.tweetsCDObjects = try managedContext.fetch(fetchRequest)
-            print(self.tweetsCDObjects)
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
             coredataComplition(.failure(error))
@@ -69,6 +68,16 @@ class TwitterCoreDataManager {
 
         self.tweetsCDObjects.forEach {
             tweets.append(TweetInfo.init(CDObject: $0))
+        }
+
+        if let maxId = maxId {
+            let tweetsSubrange = tweets.filter { $0.idStr < maxId }
+            tweets = tweetsSubrange
+        }
+
+        if let sinceId = sinceId {
+            let tweetsSubrange = tweets.filter { $0.idStr > sinceId }
+            tweets = tweetsSubrange
         }
 
         coredataComplition(.success(tweets))

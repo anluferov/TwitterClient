@@ -16,22 +16,21 @@ class TwitterManager {
     let twitterCoreDataManager = TwitterCoreDataManager()
 
 
-    func getTweets(count: Int, maxId: String?, managerComplition: @escaping (Result<[TweetInfo]>) -> ()) {
+    func getTweets(count: Int, maxId: String?, sinceId: String?, managerComplition: @escaping (Result<[TweetInfo]>) -> ()) {
 
-        twitterServerManager.fetchHomeTimelineTweets(count: count, maxId: maxId, serverComplition: { result in
+        twitterServerManager.fetchHomeTimelineTweets(count: count, maxId: maxId, sinceId: sinceId, serverComplition: { result in
             switch result {
             case .success(let tweets):
-                managerComplition(.success(tweets.sorted(by: > )))
+                managerComplition(.success(tweets))
                 self.twitterCoreDataManager.save(tweets: tweets)
 
-                // !!! store tweets in Core Data async
-                
             case .failure(_):
-
-                self.twitterCoreDataManager.fetch(count: count, maxId: maxId, coredataComplition: { result in
+//                для показа ошибки при случае оффлайна
+//                managerComplition(.failure(offlineError))
+                self.twitterCoreDataManager.fetch(count: count, maxId: maxId, sinceId: sinceId, coredataComplition: { result in
                     switch result {
                     case .success(let tweets):
-                        managerComplition(.success(tweets.sorted(by: > )))
+                        managerComplition(.success(tweets))
                     case .failure(let error):
                         print(error)
                         managerComplition(.failure(error))

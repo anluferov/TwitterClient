@@ -8,18 +8,24 @@
 
 import UIKit
 import AlamofireImage
+import Alamofire
 
 class TweetFeedTableViewController: UITableViewController {
 
     //MARK: - variables
 
     let twitterManager = TwitterManager()
-    var tweets = [TweetInfo]()
+
+    private var tweets = [TweetInfo]()
+    var sortedTweets: [TweetInfo] {
+        return self.tweets.sorted(by: > )
+    }
 
     @IBOutlet weak var refreshFeedButton: UIBarButtonItem!
     var alert = UIAlertController()
 
     var isFetchingInProgress = false
+    let defaultNumberTweets = 15
 
     //MARK: - VC Lifecycle functions
 
@@ -35,7 +41,10 @@ class TweetFeedTableViewController: UITableViewController {
 
         addCreateTweetButton()
 
-        requestForTweets(count: 20)
+        tableView.refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: #selector(updateTweetFeed), for: .valueChanged)
+
+        updateTweetFeed()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -91,7 +100,10 @@ class TweetFeedTableViewController: UITableViewController {
         let alertButton = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alert.addAction(alertButton)
 
-        present(alert, animated: true, completion: nil)
+        if self.presentedViewController == nil {
+            present(alert, animated: true, completion: nil)
+        }
+
     }
 
     // MARK: - TableView data source
@@ -102,13 +114,13 @@ class TweetFeedTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print(#function)
-        return tweets.count
+        return sortedTweets.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print(#function)
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TweetTableViewCell
-        let tweet = tweets[indexPath.row]
+        let tweet = sortedTweets[indexPath.row]
 
         //fill tweet text
         cell.textTweetLabel.text = tweet.fullText
@@ -148,32 +160,49 @@ class TweetFeedTableViewController: UITableViewController {
 //        Subtract 1 from the lowest Tweet ID returned from the previous request and use this for the value of max_id.
 //        https://developer.twitter.com/en/docs/tweets/timelines/guides/working-with-timelines
 
-        if indexPath.row + 10 == tweets.count {
-            if let lastTweet = tweets.last, let maxIdInt = Int(lastTweet.idStr) {
+        if indexPath.row + 10 == sortedTweets.count {
+            if let lastTweet = sortedTweets.last, let maxIdInt = Int(lastTweet.idStr) {
                 let maxIdString = String(maxIdInt - 1)
-                requestForTweets(count: 20, maxId: maxIdString)
+                requestForNewTweets(count: defaultNumberTweets, maxId: maxIdString, requestComplition: nil)
             }
         }
     }
 
     //MARK: - work with tweets data
 
-    func requestForTweets(count: Int, maxId: String? = nil) {
+    func requestForNewTweets(count: Int, maxId: String? = nil, sinceId: String? = nil, requestComplition: (() -> ())?) {
         isFetchingInProgress = true
-        twitterManager.getTweets(count: count, maxId: maxId, managerComplition: { [weak self] result in
+        twitterManager.getTweets(count: count, maxId: maxId, sinceId: sinceId, managerComplition: { [weak self] result in
             switch result {
             case .success(let tweets):
                 self?.isFetchingInProgress = false
                 self?.stopFetchingTweetsLoader()
                 self?.tweets.append(contentsOf: tweets)
                 self?.tableView.reloadData()
+                requestComplition?()
 
             case .failure(let error):
                 print(error)
                 self?.isFetchingInProgress = false
                 self?.stopFetchingTweetsLoader()
                 self?.presentErrorAlert(message: error.localizedDescription)
+                requestComplition?()
             }
         })
+    }
+
+    @objc func updateTweetFeed() {
+        if tweets.isEmpty {
+            requestForNewTweets(count: defaultNumberTweets, requestComplition: {
+                self.refreshControl?.endRefreshing()
+            })
+        } else {
+            if let firstTweet = sortedTweets.first, let sinceIdInt = Int(firstTweet.idStr) {
+                let sinceIdSting = String(sinceIdInt + 1)
+                requestForNewTweets(count: defaultNumberTweets, sinceId: sinceIdSting, requestComplition: {
+                    self.refreshControl?.endRefreshing()
+                })
+            }
+        }
     }
 }

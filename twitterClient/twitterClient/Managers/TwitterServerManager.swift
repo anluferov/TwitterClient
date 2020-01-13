@@ -54,7 +54,7 @@ class TwitterServerManager {
     }
 
     // get tweets from Timeline
-    func fetchHomeTimelineTweets(count: Int, maxId: String?, serverComplition: @escaping (Result<[TweetInfo]>) -> ()) {
+    func fetchHomeTimelineTweets(count: Int, maxId: String?, sinceId: String?, serverComplition: @escaping (Result<[TweetInfo]>) -> ()) {
 
         let hostHomeTimeline = (host?.appendingPathComponent("statuses/home_timeline.json"))!
 
@@ -64,6 +64,10 @@ class TwitterServerManager {
         ]
         if let maxId = maxId {
             httpParameters["max_id"] = maxId
+        }
+
+        if let sinceId = sinceId {
+            httpParameters["since_id"] = sinceId
         }
 
         let _ = self.oauthswiftClient.get(hostHomeTimeline, parameters: httpParameters) { result in
