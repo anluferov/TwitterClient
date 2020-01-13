@@ -145,8 +145,14 @@ class TweetFeedTableViewController: UITableViewController {
 //        guard let cell = cell as? TweetTableViewCell else { return }
 //        cell.configure(with: tweets[indexPath.row])
 
+//        Subtract 1 from the lowest Tweet ID returned from the previous request and use this for the value of max_id.
+//        https://developer.twitter.com/en/docs/tweets/timelines/guides/working-with-timelines
+
         if indexPath.row + 10 == tweets.count {
-            requestForTweets(count: 20, maxId: tweets.last?.idStr)
+            if let lastTweet = tweets.last, let maxIdInt = Int(lastTweet.idStr) {
+                let maxIdString = String(maxIdInt - 1)
+                requestForTweets(count: 20, maxId: maxIdString)
+            }
         }
     }
 
