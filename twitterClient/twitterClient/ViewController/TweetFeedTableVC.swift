@@ -61,7 +61,7 @@ class TweetFeedTableViewController: UITableViewController {
     //MARK: - createNewTweet button
 
     func addCreateTweetButton() {
-        var createTweetButton = UIButton(frame: CGRect(origin: CGPoint(x: self.view.frame.width * 3/4, y: self.view.frame.height * 5/6),
+        let createTweetButton = UIButton(frame: CGRect(origin: CGPoint(x: self.view.frame.width * 3/4, y: self.view.frame.height * 5/6),
                                                 size: CGSize(width: 50.0, height: 50.0)))
 //        createTweetButton.backgroundColor = .blue
         self.navigationController?.view.addSubview(createTweetButton)

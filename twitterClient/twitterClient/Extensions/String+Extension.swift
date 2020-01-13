@@ -8,15 +8,17 @@
 
 import Foundation
 
+private let dateFormatter: DateFormatter = {
+    let dateFormatter = DateFormatter()
+    dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+    dateFormatter.dateFormat = "EEE MMM dd HH:mm:ss Z yyyy"
+    return dateFormatter
+}()
+
 extension String {
 
     // function for getting time ago string from Twitter created_at date
     func getTimeAgoFormat() -> String? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.dateFormat = "EEE MMM dd HH:mm:ss Z yyyy"
-        let createdAtDate = dateFormatter.date(from:self)
-        let timeAgoString = createdAtDate?.getTimeAgoInterval()
-        return timeAgoString
+        return dateFormatter.date(from:self)?.getTimeAgoInterval()
     }
 }

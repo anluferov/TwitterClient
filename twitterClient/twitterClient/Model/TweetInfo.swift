@@ -26,6 +26,15 @@ struct TweetInfo {
         self.name = name
         self.screenName = screenName
     }
+
+    init (CDObject: TweetInfoCoreData) {
+        self.idStr = CDObject.idStr!
+        self.createdAt = CDObject.createdAt!
+        self.fullText = CDObject.fullText!
+        self.profileImageUrl = CDObject.profileImageUrl!
+        self.name = CDObject.name!
+        self.screenName = CDObject.screenName!
+    }
 }
 
 

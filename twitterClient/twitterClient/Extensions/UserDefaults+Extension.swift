@@ -12,11 +12,7 @@ import OAuthSwift
 extension UserDefaults {
     
     func setUserAuthorizedState( _ value: Bool) {
-        if value {
-            set(true, forKey: "IsUserAuthorised")
-        } else {
-            set(false, forKey: "IsUserAuthorised")
-        }
+        set(value, forKey: "IsUserAuthorised")
     }
 
     func isUserAuthorized() -> Bool {

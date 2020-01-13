@@ -27,10 +27,10 @@ class TwitterServerManager {
 
     // set for oauthswift instance tokens for requests
     var oauthswiftClient: OAuthSwiftClient {
-        if let UserOauthToken = UserDefaults.standard.value(forKey: "UserOauthToken") as? String,
-            let UserOauthTokenSecret = UserDefaults.standard.value(forKey: "UserOauthTokenSecret") as? String {
-                oauthswift.client.credential.oauthToken = UserOauthToken
-                oauthswift.client.credential.oauthTokenSecret = UserOauthTokenSecret
+        if let userOauthToken = UserDefaults.standard.value(forKey: "UserOauthToken") as? String,
+            let userOauthTokenSecret = UserDefaults.standard.value(forKey: "UserOauthTokenSecret") as? String {
+                oauthswift.client.credential.oauthToken = userOauthToken
+                oauthswift.client.credential.oauthTokenSecret = userOauthTokenSecret
         }
 
         return oauthswift.client
