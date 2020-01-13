@@ -121,4 +121,27 @@ class TwitterServerManager {
         }
     }
 
+    // send tweet
+    func sendTweet(tweetText: String, serverComplition: @escaping (Result<Any>) -> ()) {
+
+        let hostHomeTimeline = (host?.appendingPathComponent("statuses/update.json"))!
+
+        let httpParameters: OAuthSwift.Parameters = ["status": tweetText]
+
+        let _ = self.oauthswiftClient.post(hostHomeTimeline, parameters: httpParameters) { result in
+              switch result {
+              case .success(let response):
+                print(response)
+                serverComplition(.success(response))
+                break
+
+              case .failure(let error):
+                print(error)
+                serverComplition(.failure(error))
+                break
+
+              }
+        }
+    }
+
 }
