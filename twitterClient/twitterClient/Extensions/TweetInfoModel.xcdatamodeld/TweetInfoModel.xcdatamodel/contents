@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="TweetInfoCoreData" representedClassName="TweetInfoCoreData" syncable="YES" codeGenerationType="class">
+        <attribute name="createdAt" attributeType="String"/>
+        <attribute name="fullText" attributeType="String"/>
+        <attribute name="idStr" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="profileImageUrl" attributeType="String"/>
+        <attribute name="screenName" attributeType="String"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="idStr"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <elements>
+        <element name="TweetInfoCoreData" positionX="-63" positionY="-18" width="128" height="133"/>
+    </elements>
+</model>
