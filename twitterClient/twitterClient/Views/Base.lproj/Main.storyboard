@@ -131,41 +131,65 @@
                             <outlet property="delegate" destination="n8U-fg-WdT" id="4aP-8P-WLV"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" leftItemsSupplementBackButton="YES" id="lAm-DZ-dei">
+                    <navigationItem key="navigationItem" id="lAm-DZ-dei">
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="MXs-9n-AQs">
                             <connections>
                                 <action selector="logoutAction:" destination="n8U-fg-WdT" id="U51-eW-pZe"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Refresh Feed" id="e8p-DH-xcY">
-                            <connections>
-                                <action selector="refreshFeedAction:" destination="n8U-fg-WdT" id="I9r-bB-Sit"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="refreshFeedButton" destination="e8p-DH-xcY" id="wN8-MD-HN5"/>
+                        <segue destination="IgE-fh-wK2" kind="show" identifier="showNewTweetScreen" id="iKR-rJ-99P"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LNM-c1-8ZV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3351.1999999999998" y="1115.8920539730136"/>
         </scene>
-        <!--View Controller-->
+        <!--New Tweet View Controller-->
         <scene sceneID="PjN-X2-WIs">
             <objects>
-                <viewController id="IgE-fh-wK2" sceneMemberID="viewController">
+                <viewController id="IgE-fh-wK2" customClass="NewTweetViewController" customModule="twitterClient" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fvq-AX-j9W">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="05g-Aq-lDn">
+                                <rect key="frame" x="76" y="54" width="289" height="416"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cAr-5U-5jD">
+                                <rect key="frame" x="16" y="54" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="7vy-Hk-Rue"/>
+                                    <constraint firstAttribute="width" constant="50" id="Ar3-gk-qnj"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="cAr-5U-5jD" firstAttribute="top" secondItem="fvq-AX-j9W" secondAttribute="topMargin" constant="10" id="Cdw-MI-eUw"/>
+                            <constraint firstItem="05g-Aq-lDn" firstAttribute="leading" secondItem="cAr-5U-5jD" secondAttribute="trailing" constant="10" id="PEC-E7-37a"/>
+                            <constraint firstItem="HLX-Hs-lNL" firstAttribute="bottom" secondItem="05g-Aq-lDn" secondAttribute="bottom" constant="197" id="YBW-9Y-ykz"/>
+                            <constraint firstItem="05g-Aq-lDn" firstAttribute="top" secondItem="HLX-Hs-lNL" secondAttribute="top" constant="10" id="icq-iw-J9F"/>
+                            <constraint firstItem="cAr-5U-5jD" firstAttribute="leading" secondItem="fvq-AX-j9W" secondAttribute="leadingMargin" id="o8r-Io-iSY"/>
+                            <constraint firstItem="HLX-Hs-lNL" firstAttribute="trailing" secondItem="05g-Aq-lDn" secondAttribute="trailing" constant="10" id="yE3-tm-KJZ"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="HLX-Hs-lNL"/>
                     </view>
                     <navigationItem key="navigationItem" id="9AU-vY-15m"/>
+                    <connections>
+                        <outlet property="tweetTextView" destination="05g-Aq-lDn" id="tdQ-7s-pde"/>
+                        <outlet property="userAvatar" destination="cAr-5U-5jD" id="ecf-Yu-m88"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gcB-Oe-gKn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4214" y="1116"/>
+            <point key="canvasLocation" x="4213.6000000000004" y="1115.8920539730136"/>
         </scene>
         <!--Start View Controller-->
         <scene sceneID="oeZ-1Q-Di5">
@@ -209,6 +233,6 @@
         <image name="twitter-button" width="79" height="14"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="odb-9A-ZMg"/>
+        <segue reference="pZG-nB-Ykv"/>
     </inferredMetricsTieBreakers>
 </document>

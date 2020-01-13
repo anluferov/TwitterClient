@@ -12,6 +12,7 @@ import Alamofire
 
 class TwitterServerManager {
 
+    static let shared = TwitterServerManager()
     let host = URL(string: "https://api.twitter.com/1.1/")
     
     var tweets = [TweetInfo]()
@@ -46,6 +47,7 @@ class TwitterServerManager {
             case .success(let (credential, _, parameters)):
                 print("Authorization is succesful! \n oauthToken: \(credential.oauthToken) \n oauthTokenSecret:   \(credential.oauthTokenSecret) \n All parameters: \(parameters)")
                 UserDefaults.standard.setAuthorizationTokens(credential)
+                UserDefaults.standard.setInfoAboutUser(parameters)
 
             case .failure(let error):
                 print(error.localizedDescription)
@@ -60,15 +62,11 @@ class TwitterServerManager {
 
         var httpParameters: OAuthSwift.Parameters = ["count": count,
                                                  "exclude_replies": "true",
-                                                 "tweet_mode": "extended"
-        ]
-        if let maxId = maxId {
-            httpParameters["max_id"] = maxId
-        }
+                                                 "tweet_mode": "extended"]
 
-        if let sinceId = sinceId {
-            httpParameters["since_id"] = sinceId
-        }
+        if let maxId = maxId { httpParameters["max_id"] = maxId }
+
+        if let sinceId = sinceId { httpParameters["since_id"] = sinceId }
 
         let _ = self.oauthswiftClient.get(hostHomeTimeline, parameters: httpParameters) { result in
               switch result {
@@ -91,6 +89,36 @@ class TwitterServerManager {
 
               }
           }
+    }
+
+    // get user image
+    func fetchUserImage(serverComplition: @escaping (Result<UserInfo>) -> ()) {
+
+        let hostHomeTimeline = (host?.appendingPathComponent("users/show.json"))!
+
+        let userId = UserDefaults.standard.value(forKey: "UserId") as? String
+        let screenName = UserDefaults.standard.value(forKey: "ScreenName") as? String
+
+        let httpParameters: OAuthSwift.Parameters = ["user_id": userId!,
+                                                     "screen_name": screenName!]
+
+        let _ = self.oauthswiftClient.get(hostHomeTimeline, parameters: httpParameters) { result in
+              switch result {
+              case .success(let response):
+
+                do {
+                    let userInfo = try JSONDecoder().decode(UserInfo.self, from: response.data)
+                    serverComplition(.success(userInfo))
+                } catch {
+                    serverComplition(.failure(error))
+                }
+
+              case .failure(let error):
+                print(error)
+                break
+
+              }
+        }
     }
 
 }

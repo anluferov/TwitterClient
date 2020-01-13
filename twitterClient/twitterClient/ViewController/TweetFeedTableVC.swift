@@ -21,7 +21,6 @@ class TweetFeedTableViewController: UITableViewController {
         return self.tweets.sorted(by: > )
     }
 
-    @IBOutlet weak var refreshFeedButton: UIBarButtonItem!
     var alert = UIAlertController()
 
     var isFetchingInProgress = false
@@ -33,7 +32,6 @@ class TweetFeedTableViewController: UITableViewController {
         print(#function)
         super.viewDidLoad()
 
-        navigationItem.hidesBackButton = true
         navigationItem.title = "Feed Page"
 
         tableView.rowHeight = UITableView.automaticDimension
@@ -57,10 +55,6 @@ class TweetFeedTableViewController: UITableViewController {
     }
 
     //MARK: - IBActions
-    
-    @IBAction func refreshFeedAction(_ sender: Any) {
-        tableView.reloadData()
-    }
 
     @IBAction func logoutAction(_ sender: Any) {
         UserDefaults.standard.cleanAuthorizationTokens()
@@ -72,11 +66,19 @@ class TweetFeedTableViewController: UITableViewController {
     func addCreateTweetButton() {
         let createTweetButton = UIButton(frame: CGRect(origin: CGPoint(x: self.view.frame.width * 3/4, y: self.view.frame.height * 5/6),
                                                 size: CGSize(width: 50.0, height: 50.0)))
-//        createTweetButton.backgroundColor = .blue
         self.navigationController?.view.addSubview(createTweetButton)
         createTweetButton.setImage(UIImage(named: "plusButton"), for: .normal)
+        createTweetButton.addTarget(self, action: #selector(openNewTweetScreen), for: .touchUpInside)
     }
-    
+
+    @objc func openNewTweetScreen() {
+//        set name of back button in navigation bar
+        let backItem = UIBarButtonItem()
+        backItem.title = "Cancel"
+        navigationItem.backBarButtonItem = backItem
+
+        self.performSegue(withIdentifier: "showNewTweetScreen", sender: self)
+    }
 
     //MARK: - function for Alerts
 
