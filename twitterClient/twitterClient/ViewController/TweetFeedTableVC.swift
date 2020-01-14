@@ -41,13 +41,13 @@ class TweetFeedTableViewController: UITableViewController {
 
         tableView.refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(updateTweetFeed), for: .valueChanged)
-
-        updateTweetFeed()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         print(#function)
         super.viewDidAppear(animated)
+
+        updateTweetFeed()
 
         if isFetchingInProgress {
             startFetchingTweetsLoader(message: "Loading tweets...")
