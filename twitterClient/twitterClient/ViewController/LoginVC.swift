@@ -13,7 +13,7 @@ class LoginViewController: UIViewController {
     //MARK: - variables
 
     let twitterManager = TwitterManager()
-    let twitterServerManager = TwitterServerManager()
+    let twitterServerManager = TwitterServerManager.shared
 
     //MARK: - IBOutlets
 

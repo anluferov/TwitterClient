@@ -12,7 +12,7 @@ import Alamofire
 
 class TwitterManager {
 
-    let twitterServerManager = TwitterServerManager()
+    let twitterServerManager = TwitterServerManager.shared
     let twitterCoreDataManager = TwitterCoreDataManager()
 
 

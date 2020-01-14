@@ -25,8 +25,6 @@ extension TweetInfo: Decodable {
     }
 
     init(from decoder: Decoder) throws {
-        print("Init from decoder")
-
         let rootContainer = try decoder.container(keyedBy: TweetJsonRootKeys.self)
 
         self.idStr = try rootContainer.decode(String.self, forKey: .idStr)
