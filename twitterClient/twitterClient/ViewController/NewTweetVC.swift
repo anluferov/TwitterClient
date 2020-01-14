@@ -25,8 +25,11 @@ class NewTweetViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
         tweetTextView.becomeFirstResponder()
         addTextViewPlaceholder()
+        tweetButton.isEnabled = false
+
         tweetTextView.delegate = self
     }
 
@@ -81,9 +84,11 @@ extension NewTweetViewController: UITextViewDelegate {
             textView.text = "What's happening?"
             textView.textColor = UIColor.lightGray
             textView.selectedTextRange = textView.textRange(from: textView.beginningOfDocument, to: textView.beginningOfDocument)
+            tweetButton.isEnabled = false
         } else if textView.textColor == UIColor.lightGray && !text.isEmpty {
             textView.textColor = UIColor.black
             textView.text = text
+            tweetButton.isEnabled = true
         } else {
             return textView.text.count <= 280
         }
