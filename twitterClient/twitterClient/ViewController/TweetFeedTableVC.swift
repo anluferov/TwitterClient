@@ -170,9 +170,9 @@ class TweetFeedTableViewController: UITableViewController {
 
     //MARK: - work with tweets data
 
-    func requestForNewTweets(count: Int, maxId: String? = nil, sinceId: String? = nil, requestComplition: (() -> ())?) {
+    func requestForNewTweets(forceUpdate: Bool = false, count: Int, maxId: String? = nil, sinceId: String? = nil, requestComplition: (() -> ())?) {
         isFetchingInProgress = true
-        twitterManager.getTweets(count: count, maxId: maxId, sinceId: sinceId, managerComplition: { [weak self] result in
+        twitterManager.getTweets(forceUpdate: forceUpdate, count: count, maxId: maxId, sinceId: sinceId, managerComplition: { [weak self] result in
             switch result {
             case .success(let tweets):
                 self?.isFetchingInProgress = false
@@ -193,7 +193,7 @@ class TweetFeedTableViewController: UITableViewController {
 
     @objc func updateTweetFeed() {
         if tweets.isEmpty {
-            requestForNewTweets(count: defaultNumberTweets, requestComplition: {
+            requestForNewTweets(forceUpdate: true, count: defaultNumberTweets, requestComplition: {
                 self.refreshControl?.endRefreshing()
             })
         } else {

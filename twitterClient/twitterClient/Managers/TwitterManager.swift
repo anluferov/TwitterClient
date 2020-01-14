@@ -16,13 +16,13 @@ class TwitterManager {
     let twitterCoreDataManager = TwitterCoreDataManager()
 
 
-    func getTweets(count: Int, maxId: String?, sinceId: String?, managerComplition: @escaping (Result<[TweetInfo]>) -> ()) {
+    func getTweets(forceUpdate: Bool, count: Int, maxId: String?, sinceId: String?, managerComplition: @escaping (Result<[TweetInfo]>) -> ()) {
 
         twitterServerManager.fetchHomeTimelineTweets(count: count, maxId: maxId, sinceId: sinceId, serverComplition: { result in
             switch result {
             case .success(let tweets):
                 managerComplition(.success(tweets))
-                self.twitterCoreDataManager.save(tweets: tweets)
+                self.twitterCoreDataManager.save(forceUpdate: forceUpdate, tweets: tweets)
 
             case .failure(_):
 //                для показа ошибки при случае оффлайна

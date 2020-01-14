@@ -35,17 +35,20 @@ class TwitterCoreDataManager {
 
     //saving tweets to Core Data
 
-    func save(tweets: [TweetInfo]) {
+    func save(forceUpdate: Bool, tweets: [TweetInfo]) {
+        
+        if forceUpdate {
+            deleteAllDataForTweetInfoCoreDataEntity()
+        }
+
         let managedContext = persistentContainer.viewContext
 
         tweets.forEach { TweetInfoCoreData(tweetInfo: $0, context: managedContext) }
 
-        persistentContainer.performBackgroundTask{ managedContext in
-            do {
-                try managedContext.save()
-            } catch let error as NSError {
-                print("Could not save. \(error), \(error.userInfo)")
-            }
+        do {
+            try managedContext.save()
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
         }
     }
 
@@ -53,8 +56,6 @@ class TwitterCoreDataManager {
 
     func fetch(count: Int, maxId: String? = nil, sinceId: String? = nil, coredataComplition: (Result<[TweetInfo]>) -> ()) {
         let managedContext = persistentContainer.viewContext
-
-//        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "TweetInfoCoreData")
         let fetchRequest: NSFetchRequest<TweetInfoCoreData> = TweetInfoCoreData.fetchRequest()
 
         do {
@@ -81,6 +82,19 @@ class TwitterCoreDataManager {
         }
 
         coredataComplition(.success(tweets))
+    }
+
+    func deleteAllDataForTweetInfoCoreDataEntity() {
+
+        let managedContext = persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<TweetInfoCoreData> = TweetInfoCoreData.fetchRequest()
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest as! NSFetchRequest<NSFetchRequestResult>)
+
+        do {
+            try managedContext.execute(batchDeleteRequest)
+        } catch {
+            print("Detele all data in TweetInfoCoreDataEntity error :", error)
+        }
     }
 }
 
