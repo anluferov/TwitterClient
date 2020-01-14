@@ -194,6 +194,7 @@ class TweetFeedTableViewController: UITableViewController {
     }
 
     @objc func updateTweetFeed() {
+
         if tweets.isEmpty {
             requestForNewTweets(forceUpdate: true, count: defaultNumberTweets, requestComplition: {
                 self.refreshControl?.endRefreshing()
