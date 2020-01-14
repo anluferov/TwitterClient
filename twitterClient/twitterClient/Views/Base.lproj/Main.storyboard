@@ -128,12 +128,17 @@
                                                 <constraint firstAttribute="height" constant="20" id="L2p-v3-YCu"/>
                                             </constraints>
                                         </stackView>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="TextView" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="S47-3f-Z91">
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="S47-3f-Z91">
                                             <rect key="frame" x="74" y="39" width="281" height="100"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            <accessibility key="accessibilityConfiguration">
+                                                <accessibilityTraits key="traits" none="YES"/>
+                                                <bool key="isElement" value="NO"/>
+                                            </accessibility>
                                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                         </textView>
                                     </subviews>
                                     <constraints>

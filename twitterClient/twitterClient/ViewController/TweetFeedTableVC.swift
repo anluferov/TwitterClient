@@ -134,7 +134,7 @@ class TweetFeedTableViewController: UITableViewController {
         cell.dateLabel.text = tweet.createdAt.getTimeAgoFormat()
 
         //fill tweet text
-        cell.tweetTextView.text += tweet.fullText
+        cell.tweetTextView.text = tweet.fullText
 
         //fill avatar
         let avatarUrl = URL(string: tweet.profileImageUrl)!
