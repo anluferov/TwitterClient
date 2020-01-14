@@ -60,8 +60,10 @@ class NewTweetViewController: UIViewController {
             switch result {
             case .success(let userInfo):
                 let avatarProfileUrl = URL(string: userInfo.profileImageUrlHttps)!
+                let placeholderImage = UIImage(named: "placeholderImage")!
                 self.userAvatar.af_setImage(
                     withURL: avatarProfileUrl,
+                    placeholderImage: placeholderImage,
                     filter: CircleFilter()
                 )
 

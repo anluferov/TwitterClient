@@ -135,8 +135,10 @@ class TweetFeedTableViewController: UITableViewController {
 
         //fill avatar
         let avatarUrl = URL(string: tweet.profileImageUrl)!
+        let placeholderImage = UIImage(named: "placeholderImage")!
         cell.avatarImage.af_setImage(
             withURL: avatarUrl,
+            placeholderImage: placeholderImage,
             filter: CircleFilter()
         )
 
