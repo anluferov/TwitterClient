@@ -10,7 +10,7 @@ import UIKit
 
 class TweetTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var textTweetLabel: UILabel!
+    @IBOutlet weak var tweetTextView: UITextView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var screenNameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!

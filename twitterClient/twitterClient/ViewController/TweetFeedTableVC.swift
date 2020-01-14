@@ -124,14 +124,17 @@ class TweetFeedTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TweetTableViewCell
         let tweet = sortedTweets[indexPath.row]
 
-        //fill tweet text
-        cell.textTweetLabel.text = tweet.fullText
+        //fill name of account
+        cell.nameLabel.text = tweet.name
 
         //fill username
         cell.screenNameLabel.text = " @" + tweet.screenName
 
-        //fill name of account
-        cell.nameLabel.text = tweet.name
+        //fill date ago for tweet
+        cell.dateLabel.text = tweet.createdAt.getTimeAgoFormat()
+
+        //fill tweet text
+        cell.tweetTextView.text += tweet.fullText
 
         //fill avatar
         let avatarUrl = URL(string: tweet.profileImageUrl)!
@@ -142,8 +145,7 @@ class TweetFeedTableViewController: UITableViewController {
             filter: CircleFilter()
         )
 
-        //fill date ago for tweet
-        cell.dateLabel.text = tweet.createdAt.getTimeAgoFormat()
+
 
         cell.selectionStyle = .none
 

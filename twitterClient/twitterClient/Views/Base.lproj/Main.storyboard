@@ -89,12 +89,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text " textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uep-D6-9Qs">
-                                            <rect key="frame" x="74" y="39" width="285" height="100"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PfX-b0-m1Z">
                                             <rect key="frame" x="16" y="11" width="50" height="50"/>
                                             <constraints>
@@ -134,17 +128,24 @@
                                                 <constraint firstAttribute="height" constant="20" id="L2p-v3-YCu"/>
                                             </constraints>
                                         </stackView>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="TextView" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="S47-3f-Z91">
+                                            <rect key="frame" x="74" y="39" width="281" height="100"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="uep-D6-9Qs" firstAttribute="trailing" secondItem="hLW-J6-AWi" secondAttribute="trailingMargin" id="0rL-Nd-Ijj"/>
-                                        <constraint firstItem="uep-D6-9Qs" firstAttribute="top" secondItem="Ryc-a5-NkU" secondAttribute="bottom" constant="8" id="10P-fZ-NSX"/>
+                                        <constraint firstItem="S47-3f-Z91" firstAttribute="top" secondItem="Ryc-a5-NkU" secondAttribute="bottom" constant="8" id="0WN-27-NiY"/>
                                         <constraint firstItem="Ryc-a5-NkU" firstAttribute="leading" secondItem="PfX-b0-m1Z" secondAttribute="trailing" constant="8" id="6Q7-so-aib"/>
-                                        <constraint firstItem="uep-D6-9Qs" firstAttribute="bottom" secondItem="hLW-J6-AWi" secondAttribute="bottomMargin" id="8by-tm-BWO"/>
-                                        <constraint firstItem="uep-D6-9Qs" firstAttribute="leading" secondItem="PfX-b0-m1Z" secondAttribute="trailing" constant="8" id="FSb-L8-7mF"/>
+                                        <constraint firstAttribute="trailing" secondItem="S47-3f-Z91" secondAttribute="trailing" constant="20" symbolic="YES" id="C1x-kA-E7r"/>
                                         <constraint firstItem="PfX-b0-m1Z" firstAttribute="top" secondItem="hLW-J6-AWi" secondAttribute="topMargin" id="Re3-bK-TWE"/>
                                         <constraint firstAttribute="trailing" secondItem="Ryc-a5-NkU" secondAttribute="trailing" constant="20" symbolic="YES" id="cU0-Vq-55v"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="S47-3f-Z91" secondAttribute="bottom" id="l2Q-nl-2hM"/>
                                         <constraint firstItem="Ryc-a5-NkU" firstAttribute="top" secondItem="hLW-J6-AWi" secondAttribute="topMargin" id="u0G-oa-wMQ"/>
                                         <constraint firstItem="PfX-b0-m1Z" firstAttribute="leading" secondItem="hLW-J6-AWi" secondAttribute="leadingMargin" id="veI-Of-Y7o"/>
+                                        <constraint firstItem="S47-3f-Z91" firstAttribute="leading" secondItem="PfX-b0-m1Z" secondAttribute="trailing" constant="8" id="wpY-9w-rNy"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -152,7 +153,7 @@
                                     <outlet property="dateLabel" destination="BAg-rd-9vJ" id="iaX-Kv-EIk"/>
                                     <outlet property="nameLabel" destination="fhm-gt-2ZA" id="BPg-54-AwL"/>
                                     <outlet property="screenNameLabel" destination="a3a-f2-tra" id="YJi-pH-E3s"/>
-                                    <outlet property="textTweetLabel" destination="uep-D6-9Qs" id="Tvi-xB-kb1"/>
+                                    <outlet property="tweetTextView" destination="S47-3f-Z91" id="mSj-4d-mVR"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
