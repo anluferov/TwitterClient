@@ -15,6 +15,16 @@ class LoginViewController: UIViewController {
     let twitterManager = TwitterManager()
     let twitterServerManager = TwitterServerManager.shared
 
+//    var isUserAuthorised: Bool? = nil {
+//        didSet {
+//            if let isUserAuthorised = isUserAuthorised {
+//                if isUserAuthorised {
+//                    self.performSegue(withIdentifier: "showFeedScreenAfterLogin", sender: self)
+//                }
+//            }
+//        }
+//    }
+
     //MARK: - IBOutlets
 
     @IBOutlet weak var signInWithTwitterButton: UIButton!
@@ -27,8 +37,26 @@ class LoginViewController: UIViewController {
         navigationItem.title = "Login Page"
         navigationItem.hidesBackButton = true
 
+//        NotificationCenter.default.addObserver(self,
+//                                               forKeyPath: "IsUserAuthorised",
+//                                               options: NSKeyValueObservingOptions.new,
+//                                               context: nil)
+
+//        UserDefaults.standard.removeObserver(self, forKeyPath: "Gift")
+
         NotificationCenter.default.addObserver(self, selector: #selector(openFeedAfterLogin),
                                                name: UserDefaults.didChangeNotification, object: nil)
+    }
+
+
+
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        print(#function)
+        openFeedAfterLogin()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
 
     //MARK: - IBActions
@@ -41,6 +69,17 @@ class LoginViewController: UIViewController {
         if UserDefaults.standard.isUserAuthorized() {
             self.performSegue(withIdentifier: "showFeedScreenAfterLogin", sender: self)
         }
+
+//        if UserDefaults.standard.isUserAuthorized() {
+//            self.performSegue(withIdentifier: "showFeedScreenAfterLogin", sender: self)
+//        }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+        print(#function)
+        print("!!!!!")
     }
 }
 

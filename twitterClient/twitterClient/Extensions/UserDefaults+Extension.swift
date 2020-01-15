@@ -15,12 +15,9 @@ extension UserDefaults {
         set(value, forKey: "IsUserAuthorised")
     }
 
-    func isUserAuthorized() -> Bool {
-        if let value = value(forKey: "IsUserAuthorised") as? Bool {
-            return value
-        } else {
-            return false
-        }
+    func setInfoAboutUser(_ parameter: OAuthSwift.Parameters) {
+        UserDefaults.standard.set(parameter["screen_name"], forKey: "ScreenName")
+        UserDefaults.standard.set(parameter["user_id"], forKey: "UserId")
     }
 
     func setAuthorizationTokens(_ credential: OAuthSwiftCredential) {
@@ -29,15 +26,18 @@ extension UserDefaults {
         UserDefaults.standard.setUserAuthorizedState(true)
     }
 
-    func setInfoAboutUser(_ parameter: OAuthSwift.Parameters) {
-        UserDefaults.standard.set(parameter["screen_name"], forKey: "ScreenName")
-        UserDefaults.standard.set(parameter["user_id"], forKey: "UserId")
-    }
-
     func cleanAuthorizationTokens() {
         UserDefaults.standard.removeObject(forKey: "UserOauthToken")
         UserDefaults.standard.removeObject(forKey: "UserOauthTokenSecret")
         self.setUserAuthorizedState(false)
+    }
+
+    func isUserAuthorized() -> Bool {
+        if let value = value(forKey: "IsUserAuthorised") as? Bool {
+            return value
+        } else {
+            return false
+        }
     }
 
 }

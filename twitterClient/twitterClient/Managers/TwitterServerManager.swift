@@ -46,8 +46,10 @@ class TwitterServerManager {
             switch result {
             case .success(let (credential, _, parameters)):
                 print("Authorization is succesful! \n oauthToken: \(credential.oauthToken) \n oauthTokenSecret:   \(credential.oauthTokenSecret) \n All parameters: \(parameters)")
-                UserDefaults.standard.setAuthorizationTokens(credential)
+                
                 UserDefaults.standard.setInfoAboutUser(parameters)
+                UserDefaults.standard.setAuthorizationTokens(credential)
+
 
             case .failure(let error):
                 print(error.localizedDescription)

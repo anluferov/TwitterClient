@@ -76,7 +76,7 @@
         <!--Tweet Feed Table View Controller-->
         <scene sceneID="afy-IT-ODI">
             <objects>
-                <tableViewController id="n8U-fg-WdT" customClass="TweetFeedTableViewController" customModule="twitterClient" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="TweetFeedTableViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="n8U-fg-WdT" customClass="TweetFeedTableViewController" customModule="twitterClient" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ddh-uU-SeC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -128,15 +128,13 @@
                                                 <constraint firstAttribute="height" constant="20" id="L2p-v3-YCu"/>
                                             </constraints>
                                         </stackView>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="S47-3f-Z91">
-                                            <rect key="frame" x="74" y="39" width="281" height="100"/>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S47-3f-Z91">
+                                            <rect key="frame" x="66" y="39" width="301" height="100"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <accessibility key="accessibilityConfiguration">
                                                 <accessibilityTraits key="traits" none="YES"/>
                                                 <bool key="isElement" value="NO"/>
                                             </accessibility>
-                                            <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                         </textView>
@@ -144,13 +142,13 @@
                                     <constraints>
                                         <constraint firstItem="S47-3f-Z91" firstAttribute="top" secondItem="Ryc-a5-NkU" secondAttribute="bottom" constant="8" id="0WN-27-NiY"/>
                                         <constraint firstItem="Ryc-a5-NkU" firstAttribute="leading" secondItem="PfX-b0-m1Z" secondAttribute="trailing" constant="8" id="6Q7-so-aib"/>
-                                        <constraint firstAttribute="trailing" secondItem="S47-3f-Z91" secondAttribute="trailing" constant="20" symbolic="YES" id="C1x-kA-E7r"/>
+                                        <constraint firstAttribute="trailing" secondItem="S47-3f-Z91" secondAttribute="trailing" constant="8" id="C1x-kA-E7r"/>
                                         <constraint firstItem="PfX-b0-m1Z" firstAttribute="top" secondItem="hLW-J6-AWi" secondAttribute="topMargin" id="Re3-bK-TWE"/>
                                         <constraint firstAttribute="trailing" secondItem="Ryc-a5-NkU" secondAttribute="trailing" constant="20" symbolic="YES" id="cU0-Vq-55v"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="S47-3f-Z91" secondAttribute="bottom" id="l2Q-nl-2hM"/>
                                         <constraint firstItem="Ryc-a5-NkU" firstAttribute="top" secondItem="hLW-J6-AWi" secondAttribute="topMargin" id="u0G-oa-wMQ"/>
                                         <constraint firstItem="PfX-b0-m1Z" firstAttribute="leading" secondItem="hLW-J6-AWi" secondAttribute="leadingMargin" id="veI-Of-Y7o"/>
-                                        <constraint firstItem="S47-3f-Z91" firstAttribute="leading" secondItem="PfX-b0-m1Z" secondAttribute="trailing" constant="8" id="wpY-9w-rNy"/>
+                                        <constraint firstItem="S47-3f-Z91" firstAttribute="leading" secondItem="PfX-b0-m1Z" secondAttribute="trailing" id="wpY-9w-rNy"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -236,7 +234,7 @@
         <!--Start View Controller-->
         <scene sceneID="oeZ-1Q-Di5">
             <objects>
-                <viewController id="meN-Tz-YHd" customClass="StartViewController" customModule="twitterClient" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StartViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="meN-Tz-YHd" customClass="StartViewController" customModule="twitterClient" customModuleProvider="target" sceneMemberID="viewController">
                     <imageView key="view" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="fLl-dO-wsE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -275,6 +273,6 @@
         <image name="twitterLogo" width="2500" height="2500"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="pZG-nB-Ykv"/>
+        <segue reference="odb-9A-ZMg"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -29,7 +29,6 @@ class TweetFeedTableViewController: UITableViewController {
     //MARK: - VC Lifecycle functions
 
     override func viewDidLoad() {
-        print(#function)
         super.viewDidLoad()
 
         navigationItem.title = "Feed Page"
@@ -44,7 +43,6 @@ class TweetFeedTableViewController: UITableViewController {
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        print(#function)
         super.viewDidAppear(animated)
 
         updateTweetFeed()
@@ -58,7 +56,25 @@ class TweetFeedTableViewController: UITableViewController {
 
     @IBAction func logoutAction(_ sender: Any) {
         UserDefaults.standard.cleanAuthorizationTokens()
-        _ = navigationController?.popViewController(animated: true)
+
+//        if let startViewController = UIStoryboard(name: "Main", bundle: nil)
+//            .instantiateViewController(withIdentifier: "StartViewController") as? StartViewController {
+//            present(startViewController, animated: true, completion: nil)
+//        }
+
+//        if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "StartViewController") as? StartViewController {
+//            if let navigator = navigationController {
+//                navigator.pushViewController(viewController, animated: true)
+//            }
+//        }
+
+        self.navigationController?.popToRootViewController(animated: true)
+
+//        if let startViewController = UIStoryboard(name: "Main", bundle: nil)
+//            .instantiateViewController(withIdentifier: "StartViewController") as? StartViewController {
+//            navigationController?.popToViewController(startViewController, animated: true)
+//        }
+
     }
 
     //MARK: - createNewTweet button
