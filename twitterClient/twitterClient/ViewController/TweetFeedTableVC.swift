@@ -22,6 +22,7 @@ class TweetFeedTableViewController: UITableViewController {
     }
 
     var alert = UIAlertController()
+    var createTweetButton = UIButton()
 
     var isFetchingInProgress = false
     let defaultNumberTweets = 15
@@ -52,6 +53,11 @@ class TweetFeedTableViewController: UITableViewController {
         }
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        createTweetButton.isHidden = true
+    }
+
     //MARK: - IBActions
 
     @IBAction func logoutAction(_ sender: Any) {
@@ -80,7 +86,7 @@ class TweetFeedTableViewController: UITableViewController {
     //MARK: - createNewTweet button
 
     func addCreateTweetButton() {
-        let createTweetButton = UIButton(frame: CGRect(origin: CGPoint(x: self.view.frame.width * 3/4, y: self.view.frame.height * 5/6),
+        createTweetButton = UIButton(frame: CGRect(origin: CGPoint(x: self.view.frame.width * 3/4, y: self.view.frame.height * 5/6),
                                                 size: CGSize(width: 50.0, height: 50.0)))
         self.navigationController?.view.addSubview(createTweetButton)
         createTweetButton.setImage(UIImage(named: "plusButton"), for: .normal)

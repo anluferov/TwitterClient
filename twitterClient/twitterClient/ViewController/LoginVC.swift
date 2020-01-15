@@ -35,6 +35,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         navigationItem.title = "Login Page"
+        navigationController?.navigationBar.barTintColor = UIColor.systemTeal
         navigationItem.hidesBackButton = true
 
 //        NotificationCenter.default.addObserver(self,

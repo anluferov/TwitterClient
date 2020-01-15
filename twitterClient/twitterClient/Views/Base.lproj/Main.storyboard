@@ -135,6 +135,7 @@
                                                 <accessibilityTraits key="traits" none="YES"/>
                                                 <bool key="isElement" value="NO"/>
                                             </accessibility>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                         </textView>
@@ -273,6 +274,6 @@
         <image name="twitterLogo" width="2500" height="2500"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="odb-9A-ZMg"/>
+        <segue reference="pZG-nB-Ykv"/>
     </inferredMetricsTieBreakers>
 </document>
