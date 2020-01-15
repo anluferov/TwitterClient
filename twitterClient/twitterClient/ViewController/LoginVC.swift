@@ -21,6 +21,8 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        signInWithTwitterButton.layer.cornerRadius = 10
+
         navigationItem.title = "Login Page"
         navigationController?.navigationBar.barTintColor = UIColor.systemTeal
         navigationItem.hidesBackButton = true
