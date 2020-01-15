@@ -10,8 +10,10 @@ import UIKit
 
 class StartViewController: UIViewController {
 
-    //MARK: - Lifrcycle functions
+    //MARK: - variables
+    let userManager = UserManager()
 
+    //MARK: - Lifecycle functions
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -19,7 +21,7 @@ class StartViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if UserDefaults.standard.isUserAuthorized() {
+        if userManager.userOauthToken != nil {
             self.performSegue(withIdentifier: "showFeedScreen", sender: self)
         } else {
             self.performSegue(withIdentifier: "showLoginScreen", sender: self)

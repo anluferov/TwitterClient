@@ -12,12 +12,14 @@ import Alamofire
 
 class NewTweetViewController: UIViewController {
 
+    //MARK: - variables
     @IBOutlet weak var userAvatar: UIImageView!
     @IBOutlet weak var tweetTextView: UITextView!
     @IBOutlet weak var tweetButton: UIBarButtonItem!
     
     let twitterServerManager = TwitterServerManager.shared
 
+    //MARK: - Lifecycle functions
     override func viewDidLoad() {
         super.viewDidLoad()
         setUserAvatar()
@@ -33,14 +35,8 @@ class NewTweetViewController: UIViewController {
         tweetTextView.delegate = self
     }
 
-    fileprivate func addTextViewPlaceholder() {
-        tweetTextView.text = "What's happening?"
-        tweetTextView.textColor = UIColor.lightGray
-        tweetTextView.selectedTextRange = tweetTextView.textRange(from: tweetTextView.beginningOfDocument, to: tweetTextView.beginningOfDocument)
-    }
-    
+    //MARK: - IBAction
     @IBAction func createTweet(_ sender: Any) {
-
         if let text = tweetTextView.text {
 
             twitterServerManager.sendTweet(tweetText: text, serverComplition: { result in
@@ -53,6 +49,13 @@ class NewTweetViewController: UIViewController {
                 }
             })
         }
+    }
+
+    //MARK: - configure of VC default state function
+    fileprivate func addTextViewPlaceholder() {
+        tweetTextView.text = "What's happening?"
+        tweetTextView.textColor = UIColor.lightGray
+        tweetTextView.selectedTextRange = tweetTextView.textRange(from: tweetTextView.beginningOfDocument, to: tweetTextView.beginningOfDocument)
     }
 
     func setUserAvatar() {
@@ -75,6 +78,7 @@ class NewTweetViewController: UIViewController {
 
 }
 
+//MARK: - UITextViewDelegate
 extension NewTweetViewController: UITextViewDelegate {
 
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {

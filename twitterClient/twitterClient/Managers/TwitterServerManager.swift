@@ -14,6 +14,8 @@ class TwitterServerManager {
 
     static let shared = TwitterServerManager()
     let host = URL(string: "https://api.twitter.com/1.1/")
+
+    let userManager = UserManager()
     
     var tweets = [TweetInfo]()
 
@@ -46,10 +48,9 @@ class TwitterServerManager {
             switch result {
             case .success(let (credential, _, parameters)):
                 print("Authorization is succesful! \n oauthToken: \(credential.oauthToken) \n oauthTokenSecret:   \(credential.oauthTokenSecret) \n All parameters: \(parameters)")
-                
-                UserDefaults.standard.setInfoAboutUser(parameters)
-                UserDefaults.standard.setAuthorizationTokens(credential)
 
+                self.userManager.setInfoAboutUser(parameters)
+                self.userManager.setAuthorizationTokens(credential)
 
             case .failure(let error):
                 print(error.localizedDescription)

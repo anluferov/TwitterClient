@@ -129,7 +129,7 @@
                                             </constraints>
                                         </stackView>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S47-3f-Z91">
-                                            <rect key="frame" x="66" y="39" width="301" height="100"/>
+                                            <rect key="frame" x="66" y="31" width="301" height="108"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <accessibility key="accessibilityConfiguration">
                                                 <accessibilityTraits key="traits" none="YES"/>
@@ -141,7 +141,7 @@
                                         </textView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="S47-3f-Z91" firstAttribute="top" secondItem="Ryc-a5-NkU" secondAttribute="bottom" constant="8" id="0WN-27-NiY"/>
+                                        <constraint firstItem="S47-3f-Z91" firstAttribute="top" secondItem="Ryc-a5-NkU" secondAttribute="bottom" id="0WN-27-NiY"/>
                                         <constraint firstItem="Ryc-a5-NkU" firstAttribute="leading" secondItem="PfX-b0-m1Z" secondAttribute="trailing" constant="8" id="6Q7-so-aib"/>
                                         <constraint firstAttribute="trailing" secondItem="S47-3f-Z91" secondAttribute="trailing" constant="8" id="C1x-kA-E7r"/>
                                         <constraint firstItem="PfX-b0-m1Z" firstAttribute="top" secondItem="hLW-J6-AWi" secondAttribute="topMargin" id="Re3-bK-TWE"/>

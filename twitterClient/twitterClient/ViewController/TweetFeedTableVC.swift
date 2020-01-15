@@ -13,8 +13,8 @@ import Alamofire
 class TweetFeedTableViewController: UITableViewController {
 
     //MARK: - variables
-
     let twitterManager = TwitterManager()
+    let userManager = UserManager()
 
     private var tweets = [TweetInfo]()
     var sortedTweets: [TweetInfo] {
@@ -27,8 +27,7 @@ class TweetFeedTableViewController: UITableViewController {
     var isFetchingInProgress = false
     let defaultNumberTweets = 15
 
-    //MARK: - VC Lifecycle functions
-
+    //MARK: - Lifecycle functions
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -59,32 +58,12 @@ class TweetFeedTableViewController: UITableViewController {
     }
 
     //MARK: - IBActions
-
     @IBAction func logoutAction(_ sender: Any) {
-        UserDefaults.standard.cleanAuthorizationTokens()
-
-//        if let startViewController = UIStoryboard(name: "Main", bundle: nil)
-//            .instantiateViewController(withIdentifier: "StartViewController") as? StartViewController {
-//            present(startViewController, animated: true, completion: nil)
-//        }
-
-//        if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "StartViewController") as? StartViewController {
-//            if let navigator = navigationController {
-//                navigator.pushViewController(viewController, animated: true)
-//            }
-//        }
-
+        userManager.cleanAllInfoboutUser()
         self.navigationController?.popToRootViewController(animated: true)
-
-//        if let startViewController = UIStoryboard(name: "Main", bundle: nil)
-//            .instantiateViewController(withIdentifier: "StartViewController") as? StartViewController {
-//            navigationController?.popToViewController(startViewController, animated: true)
-//        }
-
     }
 
     //MARK: - createNewTweet button
-
     func addCreateTweetButton() {
         createTweetButton = UIButton(frame: CGRect(origin: CGPoint(x: self.view.frame.width * 3/4, y: self.view.frame.height * 5/6),
                                                 size: CGSize(width: 50.0, height: 50.0)))
@@ -103,7 +82,6 @@ class TweetFeedTableViewController: UITableViewController {
     }
 
     //MARK: - function for Alerts
-
     private func startFetchingTweetsLoader(message: String) {
         alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
@@ -127,11 +105,9 @@ class TweetFeedTableViewController: UITableViewController {
         if self.presentedViewController == nil {
             present(alert, animated: true, completion: nil)
         }
-
     }
 
     // MARK: - TableView data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -167,8 +143,6 @@ class TweetFeedTableViewController: UITableViewController {
             filter: CircleFilter()
         )
 
-
-
         cell.selectionStyle = .none
 
         return cell
@@ -197,7 +171,6 @@ class TweetFeedTableViewController: UITableViewController {
     }
 
     //MARK: - work with tweets data
-
     func requestForNewTweets(forceUpdate: Bool = false, count: Int, maxId: String? = nil, sinceId: String? = nil, requestComplition: (() -> ())?) {
         isFetchingInProgress = true
         twitterManager.getTweets(forceUpdate: forceUpdate, count: count, maxId: maxId, sinceId: sinceId, managerComplition: { [weak self] result in
@@ -220,7 +193,6 @@ class TweetFeedTableViewController: UITableViewController {
     }
 
     @objc func updateTweetFeed() {
-
         if tweets.isEmpty {
             requestForNewTweets(forceUpdate: true, count: defaultNumberTweets, requestComplition: {
                 self.refreshControl?.endRefreshing()
