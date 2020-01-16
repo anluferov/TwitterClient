@@ -55,6 +55,9 @@ class TwitterCoreDataManager {
     // fetching tweets from Core Data
 
     func fetch(count: Int, maxId: String? = nil, sinceId: String? = nil, coredataComplition: (Result<[TweetInfo]>) -> ()) {
+
+        //NOTE: parametr count haven't used in this method now
+
         let managedContext = persistentContainer.viewContext
         let fetchRequest: NSFetchRequest<TweetInfoCoreData> = TweetInfoCoreData.fetchRequest()
 
