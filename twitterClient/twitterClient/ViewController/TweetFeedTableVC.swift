@@ -36,8 +36,6 @@ class TweetFeedTableViewController: UITableViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 200
 
-        addCreateTweetButton()
-
         tableView.refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(updateTweetFeed), for: .valueChanged)
     }
@@ -45,6 +43,7 @@ class TweetFeedTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
+        addCreateTweetButton()
         updateTweetFeed()
 
         if isFetchingInProgress {
