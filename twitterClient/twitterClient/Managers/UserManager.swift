@@ -24,9 +24,6 @@ class UserManager {
             return UserDefaults.standard.string(forKey: UserDefaultsKeys.userScreenName.rawValue) ?? nil
         }
         set(value) {
-            if value == nil {
-                 UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.userScreenName.rawValue)
-             }
             UserDefaults.standard.set(value, forKey: UserDefaultsKeys.userScreenName.rawValue)
         }
     }
@@ -36,9 +33,6 @@ class UserManager {
             return UserDefaults.standard.string(forKey: UserDefaultsKeys.userId.rawValue) ?? nil
         }
         set(value) {
-            if value == nil {
-                 UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.userId.rawValue)
-             }
             UserDefaults.standard.set(value, forKey: UserDefaultsKeys.userId.rawValue)
         }
     }
@@ -48,11 +42,10 @@ class UserManager {
             return UserDefaults.standard.string(forKey: UserDefaultsKeys.userOauthToken.rawValue) ?? nil
         }
         set(value) {
-            if value == nil {
-                UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.userOauthToken.rawValue)
-            }
-            NotificationCenter.default.post(name: .didUserOauthTokenSeted, object: nil)
             UserDefaults.standard.set(value, forKey: UserDefaultsKeys.userOauthToken.rawValue)
+            if value != nil {
+                NotificationCenter.default.post(name: .didUserOauthTokenSeted, object: nil)
+            }
         }
     }
 
@@ -61,9 +54,6 @@ class UserManager {
             return UserDefaults.standard.string(forKey: UserDefaultsKeys.userOauthTokenSecret.rawValue) ?? nil
         }
         set(value) {
-            if value == nil {
-                UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.userOauthTokenSecret.rawValue)
-            }
             UserDefaults.standard.set(value, forKey: UserDefaultsKeys.userOauthTokenSecret.rawValue)
         }
     }
@@ -77,7 +67,6 @@ class UserManager {
     }
 
     func setAuthorizationTokens(_ credential: OAuthSwiftCredential) {
-
         let oauthToken = credential.oauthToken
         let oauthTokenSecret = credential.oauthTokenSecret
 
