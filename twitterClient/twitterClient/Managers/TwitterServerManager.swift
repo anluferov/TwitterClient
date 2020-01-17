@@ -30,11 +30,8 @@ class TwitterServerManager {
 
     // set for oauthswift instance tokens for requests
     var oauthswiftClient: OAuthSwiftClient {
-        if let userOauthToken = UserDefaults.standard.value(forKey: "UserOauthToken") as? String,
-            let userOauthTokenSecret = UserDefaults.standard.value(forKey: "UserOauthTokenSecret") as? String {
-                oauthswift.client.credential.oauthToken = userOauthToken
-                oauthswift.client.credential.oauthTokenSecret = userOauthTokenSecret
-        }
+        oauthswift.client.credential.oauthToken = userManager.userOauthToken ?? ""
+        oauthswift.client.credential.oauthTokenSecret = userManager.userOauthTokenSecret ?? ""
 
         return oauthswift.client
     }
@@ -99,8 +96,8 @@ class TwitterServerManager {
 
         let hostHomeTimeline = (host?.appendingPathComponent("users/show.json"))!
 
-        let userId = UserDefaults.standard.value(forKey: "UserId") as? String
-        let screenName = UserDefaults.standard.value(forKey: "ScreenName") as? String
+        let userId = userManager.userId
+        let screenName = userManager.userScreenName
 
         let httpParameters: OAuthSwift.Parameters = ["user_id": userId!,
                                                      "screen_name": screenName!]

@@ -15,6 +15,7 @@ class TwitterManager {
     let twitterServerManager = TwitterServerManager.shared
     let twitterCoreDataManager = TwitterCoreDataManager()
 
+    //MARK: - function for getting tweets from Server or CoreData DB
 
     func getTweets(forceUpdate: Bool, count: Int, maxId: String?, sinceId: String?, managerComplition: @escaping (Result<[TweetInfo]>) -> ()) {
 
