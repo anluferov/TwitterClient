@@ -136,8 +136,8 @@
 		CE2E2AAC23ABF9B1007A1871 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				CE2E2A9A23ABF8E5007A1871 /* LoginVC.swift */,
 				CE5AA71E23BA3C4D00B0CF98 /* StartViewController.swift */,
+				CE2E2A9A23ABF8E5007A1871 /* LoginVC.swift */,
 				CEB09E7D23B1103B00C4D780 /* TweetFeedTableVC.swift */,
 				CEE160F523CCBB170058DAA3 /* NewTweetVC.swift */,
 			);

@@ -22,6 +22,7 @@ class NewTweetViewController: UIViewController {
     //MARK: - Lifecycle functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        userAvatar.image = UIImage(named: "placeholderImage")
         setUserAvatar()
     }
 
@@ -52,13 +53,13 @@ class NewTweetViewController: UIViewController {
     }
 
     //MARK: - configure of VC default state function
-    fileprivate func addTextViewPlaceholder() {
+    private func addTextViewPlaceholder() {
         tweetTextView.text = "What's happening?"
         tweetTextView.textColor = UIColor.lightGray
         tweetTextView.selectedTextRange = tweetTextView.textRange(from: tweetTextView.beginningOfDocument, to: tweetTextView.beginningOfDocument)
     }
 
-    func setUserAvatar() {
+    private func setUserAvatar() {
         twitterServerManager.fetchUserImage(serverComplition: { result in
             switch result {
             case .success(let userInfo):

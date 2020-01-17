@@ -20,8 +20,7 @@ class TweetFeedTableViewController: UITableViewController {
     var sortedTweets: [TweetInfo] {
         return self.tweets.sorted(by: > )
     }
-
-    var alert = UIAlertController()
+    
     var createTweetButton = UIButton()
 
     var isFetchingInProgress = false
@@ -65,7 +64,7 @@ class TweetFeedTableViewController: UITableViewController {
     }
 
     //MARK: - createNewTweet button
-    func addCreateTweetButton() {
+    private func addCreateTweetButton() {
         createTweetButton = UIButton(frame: CGRect(origin: CGPoint(x: self.view.frame.width * 3/4, y: self.view.frame.height * 5/6),
                                                 size: CGSize(width: 50.0, height: 50.0)))
         self.navigationController?.view.addSubview(createTweetButton)
@@ -84,7 +83,7 @@ class TweetFeedTableViewController: UITableViewController {
 
     //MARK: - function for Alerts
     private func startFetchingTweetsLoader(message: String) {
-        alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
         loadingIndicator.hidesWhenStopped = true
         loadingIndicator.style = UIActivityIndicatorView.Style.gray
@@ -99,7 +98,7 @@ class TweetFeedTableViewController: UITableViewController {
     }
 
     private func presentErrorAlert(message: String) {
-        alert = UIAlertController(title: "Error!", message: message, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Error!", message: message, preferredStyle: .alert)
         let alertButton = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alert.addAction(alertButton)
 
@@ -172,7 +171,7 @@ class TweetFeedTableViewController: UITableViewController {
     }
 
     //MARK: - work with tweets data
-    func requestForNewTweets(forceUpdate: Bool = false, count: Int, maxId: String? = nil, sinceId: String? = nil, requestComplition: (() -> ())?) {
+    private func requestForNewTweets(forceUpdate: Bool = false, count: Int, maxId: String? = nil, sinceId: String? = nil, requestComplition: (() -> ())?) {
         isFetchingInProgress = true
         twitterManager.getTweets(forceUpdate: forceUpdate, count: count, maxId: maxId, sinceId: sinceId, managerComplition: { [weak self] result in
             switch result {

@@ -68,11 +68,7 @@ class TwitterCoreDataManager {
             coredataComplition(.failure(error))
         }
 
-        var tweets = [TweetInfo]()
-
-        self.tweetsCDObjects.forEach {
-            tweets.append(TweetInfo.init(CDObject: $0))
-        }
+        var tweets = tweetsCDObjects.map { TweetInfo(CDObject: $0) }
 
         if let maxId = maxId {
             let tweetsSubrange = tweets.filter { $0.idStr < maxId }
