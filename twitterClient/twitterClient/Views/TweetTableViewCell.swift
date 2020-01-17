@@ -16,6 +16,7 @@ class TweetTableViewCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var avatarImage: UIImageView!
 
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }

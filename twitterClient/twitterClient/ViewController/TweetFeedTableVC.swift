@@ -9,6 +9,7 @@
 import UIKit
 import AlamofireImage
 import Alamofire
+import SDWebImage
 
 class TweetFeedTableViewController: UITableViewController {
 
@@ -135,15 +136,29 @@ class TweetFeedTableViewController: UITableViewController {
         cell.tweetTextView.text = tweet.fullText
 
         //fill avatar
+
         let avatarUrl = URL(string: tweet.profileImageUrl)!
         let placeholderImage = UIImage(named: "placeholderImage")!
-        cell.avatarImage.af_setImage(
-            withURL: avatarUrl,
-            placeholderImage: placeholderImage,
-            filter: CircleFilter()
+
+        // filling with custom UIImageExtension
+//        cell.avatarImage.loadImage(fromURL: tweet.profileImageUrl)
+
+        //filling with AlamofireImage pod (doesn't work on-disk cache)
+//        cell.avatarImage.af_setImage(
+//            withURL: avatarUrl,
+//            placeholderImage: placeholderImage,
+//            filter: CircleFilter()
+//        )
+
+        //filling with SDWebImage pod
+        cell.avatarImage.sd_setImage(
+            with: avatarUrl,
+            placeholderImage: placeholderImage
         )
 
+        cell.avatarImage.makeRounded()
         cell.selectionStyle = .none
+
 
         return cell
 

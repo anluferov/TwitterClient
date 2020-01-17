@@ -8,6 +8,7 @@ target 'twitterClient' do
   # Pods for twitterClient
   pod 'AlamofireImage', '~> 3.5'
   pod 'OAuthSwift', '~> 2.0.0'
+  pod 'SDWebImage', '~> 5.0'
 
 
 end

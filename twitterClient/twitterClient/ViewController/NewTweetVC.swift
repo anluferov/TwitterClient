@@ -22,6 +22,8 @@ class NewTweetViewController: UIViewController {
     //MARK: - Lifecycle functions
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        userAvatar.makeRounded()
         userAvatar.image = UIImage(named: "placeholderImage")
         setUserAvatar()
     }
@@ -65,10 +67,18 @@ class NewTweetViewController: UIViewController {
             case .success(let userInfo):
                 let avatarProfileUrl = URL(string: userInfo.profileImageUrlHttps)!
                 let placeholderImage = UIImage(named: "placeholderImage")!
-                self.userAvatar.af_setImage(
-                    withURL: avatarProfileUrl,
-                    placeholderImage: placeholderImage,
-                    filter: CircleFilter()
+
+                //filling with AlamofireImage pod (doesn't work on-disk cache)
+//                self.userAvatar.af_setImage(
+//                    withURL: avatarProfileUrl,
+//                    placeholderImage: placeholderImage,
+//                    filter: CircleFilter()
+//                )
+
+                //filling with SDWebImage pod
+                self.userAvatar.sd_setImage(
+                    with: avatarProfileUrl,
+                    placeholderImage: placeholderImage
                 )
 
             case .failure(_):
