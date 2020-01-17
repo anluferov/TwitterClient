@@ -59,7 +59,9 @@ class TweetFeedTableViewController: UITableViewController {
     //MARK: - IBActions
     @IBAction func logoutAction(_ sender: Any) {
         userManager.cleanAllInfoboutUser()
-        self.navigationController?.popToRootViewController(animated: true)
+
+        let loginVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController")
+        self.navigationController?.pushViewController(loginVC, animated: true)
     }
 
     //MARK: - createNewTweet button
